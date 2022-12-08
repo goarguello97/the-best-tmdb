@@ -1,4 +1,9 @@
-const Sequelize = require("sequelize");
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
+const { pathname: root } = new URL("../", import.meta.url);
+const __dirname = root;
+
+dotenv.config({ path: __dirname + ".env" });
 
 const dbName = process.env.DB_NAME as string;
 const dbUser = process.env.DB_USER as string;
@@ -11,4 +16,4 @@ const db = new Sequelize(dbName, dbUser, dbPassword, {
   logging: false,
 });
 
-module.exports = db;
+export default db;
