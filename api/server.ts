@@ -1,10 +1,9 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
-const cors = require("cors");
-const db = require("./config/db");
-import { Response, Request } from "express";
+import express, { Response, Request } from "express";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import cors from "cors";
+import db from "./config/db.js";
 
 // Configuración del servidor
 dotenv.config();
@@ -21,9 +20,9 @@ app.use("/api", (_req: Request, res: Response) =>
   res.status(200).json({ message: "OK" })
 );
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
-db.sync({ force: false }).then(() => {
+db.sync({ force: true }).then(() => {
   console.log("DB connected");
   app.listen(PORT, () => console.log(`Server listenning on port ${PORT}`));
 });
