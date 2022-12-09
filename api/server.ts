@@ -1,9 +1,11 @@
-import express, { Response, Request } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import cors from "cors";
 import db from "./config/db.js";
+import models from "./models/index.js"
+import routes from "./routes/index.routes.js"
 
 // Configuración del servidor
 dotenv.config();
@@ -16,13 +18,11 @@ app.use(cookieParser());
 app.use(cors());
 
 // Rutas
-app.use("/api", (_req: Request, res: Response) =>
-  res.status(200).json({ message: "OK" })
-);
+app.use("/api", routes);
 
 const PORT = process.env.PORT || 3001;
 
-db.sync({ force: true }).then(() => {
+db.sync({ force: false }).then(() => {
   console.log("DB connected");
   app.listen(PORT, () => console.log(`Server listenning on port ${PORT}`));
 });
