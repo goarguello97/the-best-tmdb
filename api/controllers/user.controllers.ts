@@ -3,11 +3,11 @@ import token from "../config/token.js";
 import { AuthRequest } from "../interfaces/user.interface.js";
 const { generateToken, validateToken } = token;
 import models from "../models/index.js";
-const { User, Favorite } = models;
+const { User, Movie } = models;
 
 class UserController {
   static async getUsers(req: Request, res: Response, next: NextFunction) {
-    User.findAll({ include: { model: Favorite, as: "favorites" } })
+    User.findAll({ include: { model: Movie, as: "favorites" } })
       .then((users) => {
         res.status(200).json(users);
       })
@@ -24,7 +24,7 @@ class UserController {
 
   static async getUserWithId(req: Request, res: Response, next: NextFunction) {
     User.findByPk(req.params.id, {
-      include: { model: Favorite, as: "favorites" },
+      include: { model: Movie, as: "favorites" },
     })
       .then((user) => {
         res.status(200).json(user);
@@ -61,7 +61,6 @@ class UserController {
 
   static async loginUser(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
-    console.log(req.body);
     User.findOne({ where: { email } })
       .then((user) => {
         if (!user)
@@ -80,6 +79,46 @@ class UserController {
         res.status(200).json({ payload, token });
       })
       .catch((error) => console.log("ERROR", error));
+  }
+
+  static async updateUser(req: AuthRequest, res: Response, next: NextFunction) {
+    const { id, name, lastname, email, password } = req.body;
+    console.log(req.body);
+    User.findByPk(id)
+      .then((user) => {
+        user.name = name;
+        user.lastname = lastname;
+        user.email = email;
+        user.password = password;
+        user.save();
+        res
+          .status(204)
+          .json({ message: "Usuario modificado correctamente.", user });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  }
+
+  static async deleteUser(req: AuthRequest, res: Response, next: NextFunction) {
+    const { id } = req.body;
+    User.findByPk(id)
+      .then((user) => {
+        if (user) {
+          user
+            .destroy()
+            .then((data) => {
+              res.status(200).json(data);
+            })
+            .catch((err) => {
+              res.status(400).json(err);
+            });
+        }
+        res.status(200).json({ message: "No existe el usuario a eliminar." });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
   }
 
   static async secret(req: AuthRequest, res: Response, next: NextFunction) {
