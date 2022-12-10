@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/db.js";
 
-class Favorite extends Model {}
+class Movie extends Model {}
 
-Favorite.init(
+Movie.init(
   {
     movieId: {
       type: DataTypes.INTEGER,
@@ -21,8 +21,8 @@ Favorite.init(
   },
   {
     sequelize,
-    modelName: "favorite",
+    modelName: "movie",
   }
 );
 
-export default Favorite;
+export default Movie;
