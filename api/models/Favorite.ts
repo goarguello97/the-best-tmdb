@@ -6,7 +6,7 @@ class Movie extends Model {}
 Movie.init(
   {
     movieId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     movieTitle: {
@@ -18,6 +18,10 @@ Movie.init(
       type: DataTypes.DATE,
       allowNull: false,
     },
+    movieGenre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     sequelize,

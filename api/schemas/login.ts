@@ -6,7 +6,7 @@ const login: Schema = {
     isEmail: { errorMessage: "Ingrese un email válido." },
   },
   password: {
-    notEmpty: { errorMessage: "La contrase es requerida" }
+    notEmpty: { errorMessage: "La contraseña es requerida" }
   },
 };
 
