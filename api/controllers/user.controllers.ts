@@ -1,13 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import token from "../config/token.js";
 import { AuthRequest } from "../interfaces/user.interface.js";
-const { generateToken, validateToken } = token;
-import models from "../models/index.js";
-const { User, Movie } = models;
+const { generateToken } = token;
+import Models from "../models/index.js";
+const { User, Movie } = Models;
 
 class UserController {
   static async getUsers(req: Request, res: Response, next: NextFunction) {
-    User.findAll({ include: { model: Movie, as: "favorites" } })
+    User.findAll({
+      attributes: { exclude: ["password"] },
+      include: { model: Movie, as: "favorites" },
+    })
       .then((users) => {
         res.status(200).json(users);
       })
@@ -15,7 +18,12 @@ class UserController {
   }
 
   static async getUser(req: Request, res: Response, next: NextFunction) {
-    User.findOne({ where: { email: req.query.email } })
+    const { email } = req.body;
+    User.findOne({
+      where: { email },
+      attributes: { exclude: ["password"] },
+      include: { model: Movie, as: "favorites" },
+    })
       .then((user) => {
         res.status(200).json(user);
       })
@@ -23,7 +31,9 @@ class UserController {
   }
 
   static async getUserWithId(req: Request, res: Response, next: NextFunction) {
-    User.findByPk(req.params.id, {
+    const { id } = req.params;
+    User.findByPk(id, {
+      attributes: { exclude: ["password"] },
       include: { model: Movie, as: "favorites" },
     })
       .then((user) => {
@@ -61,7 +71,7 @@ class UserController {
 
   static async loginUser(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
-    User.findOne({ where: { email } })
+    User.findOne({ where: { email }, attributes: { exclude: ["password"] } })
       .then((user) => {
         if (!user)
           return res.status(401).json({ message: "No existe el usuario" });
@@ -83,7 +93,6 @@ class UserController {
 
   static async updateUser(req: AuthRequest, res: Response, next: NextFunction) {
     const { id, name, lastname, email, password } = req.body;
-    console.log(req.body);
     User.findByPk(id)
       .then((user) => {
         user.name = name;
@@ -91,9 +100,14 @@ class UserController {
         user.email = email;
         user.password = password;
         user.save();
-        res
-          .status(204)
-          .json({ message: "Usuario modificado correctamente.", user });
+        User.findByPk(id, { attributes: { exclude: ["password"] } }).then(
+          (userUpdated) => {
+            res.status(202).json({
+              message: "Usuario modificado correctamente.",
+              userUpdated,
+            });
+          }
+        );
       })
       .catch((err) => {
         res.status(400).json(err);
@@ -102,23 +116,63 @@ class UserController {
 
   static async deleteUser(req: AuthRequest, res: Response, next: NextFunction) {
     const { id } = req.body;
-    User.findByPk(id)
-      .then((user) => {
-        if (user) {
-          user
-            .destroy()
-            .then((data) => {
-              res.status(200).json(data);
-            })
-            .catch((err) => {
-              res.status(400).json(err);
-            });
-        }
-        res.status(200).json({ message: "No existe el usuario a eliminar." });
+    User.destroy({ where: { id } })
+      .then(() => {
+        res.status(200).json({ message: "El usuario ha sido eliminado" });
       })
       .catch((err) => {
         res.status(400).json(err);
       });
+  }
+
+  static async addFav(req: Request, res: Response, next: NextFunction) {
+    const { movieId, movieTitle, movieDate, movieGenre, email } = req.body;
+    Movie.findOrCreate({
+      where: { movieId },
+      defaults: {
+        movieId,
+        movieTitle,
+        movieDate,
+        movieGenre,
+      },
+    }).then((response) => {
+      const movie = response[0];
+      User.findOne({
+        where: { email },
+        include: { model: Movie, as: "favorites" },
+      }).then((user) => {
+        if (user.favorites.find((e) => e.movieId == movieId)) {
+          res.json({ message: "Ya se encuentra en favoritos." });
+        } else {
+          user.addFavorites(movie);
+          res.json({ message: "Agregada a favoritos satisfactoriamente." });
+        }
+      });
+    });
+  }
+
+  static async remFav(req: Request, res: Response, next: NextFunction) {
+    const { movieId, movieTitle, movieDate, movieGenre, email } = req.body;
+    Movie.findOrCreate({
+      where: { movieId },
+      defaults: {
+        movieId,
+        movieTitle,
+        movieDate,
+        movieGenre,
+      },
+    }).then((response) => {
+      const movie = response[0];
+      User.findOne({ where: { email } ,
+        include: { model: Movie, as: "favorites" },}).then((user) => {
+        if (user.favorites.find((e) => e.movieId == movieId)) {
+          user.removeFavorites(movie);
+          res.json({ message: "Removida de favoritos satisfactoriamente." });
+        } else {
+          res.json({ message: "No esta en tu lista de favoritos." });
+        }
+      });
+    });
   }
 
   static async secret(req: AuthRequest, res: Response, next: NextFunction) {

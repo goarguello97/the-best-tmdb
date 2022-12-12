@@ -5,10 +5,7 @@ import sequelize from "../config/db.js";
 const salt = bcrypt.genSaltSync(10);
 
 class User extends Model {
-  password: string;
-  email: string;
-  name: string;
-  lastname: string;
+  [x: string]: any;
   hash(password: string, salt: string) {
     return bcrypt.hashSync(password, salt);
   }
@@ -20,6 +17,11 @@ class User extends Model {
 
 User.init(
   {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.TEXT,
       allowNull: false,

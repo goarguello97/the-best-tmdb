@@ -4,8 +4,8 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import cors from "cors";
 import db from "./config/db.js";
-import models from "./models/index.js"
-import routes from "./routes/index.routes.js"
+import models from "./models/index.js";
+import routes from "./routes/index.routes.js";
 
 // Configuración del servidor
 dotenv.config();
