@@ -1,6 +1,6 @@
 import express from "express";
-import userRouter from "./user.routes.js";
-import movieRouter from "./movies.routes.js";
+import userRouter from "./user.routes";
+import movieRouter from "./movies.routes";
 const router = express.Router();
 
 router.use("/users", userRouter);

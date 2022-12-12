@@ -1,9 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import token from "../config/token.js";
-import { AuthRequest } from "../interfaces/user.interface.js";
-const { generateToken } = token;
-import Models from "../models/index.js";
-const { User, Movie } = Models;
+import { AuthRequest } from "../interfaces/user.interface";
+import { generateToken } from "../config/token";
+import {User, Movie} from "../models/index"
 
 class UserController {
   static async getUsers(req: Request, res: Response, next: NextFunction) {
@@ -71,7 +69,7 @@ class UserController {
 
   static async loginUser(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
-    User.findOne({ where: { email }, attributes: { exclude: ["password"] } })
+    User.findOne({ where: { email }})
       .then((user) => {
         if (!user)
           return res.status(401).json({ message: "No existe el usuario" });

@@ -1,9 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
-const { pathname: root } = new URL("../", import.meta.url);
-const __dirname = root;
 
-dotenv.config({ path: __dirname + ".env" });
+dotenv.config({ path: "../.env" });
 
 const API_KEY = process.env.API_KEY;
 const BASE_URL = process.env.BASE_URL;
@@ -18,7 +16,7 @@ class MoviesService {
         `${BASE_URL}/search/tv?api_key=${API_KEY}&query=${search}&language=es-ES&page=1`
       );
 
-      return { error: false, data: {movies,tvSeries} };
+      return { error: false, data: { movies, tvSeries } };
     } catch ({ response }) {
       const { error } = response.data;
       console.error(error);
@@ -35,7 +33,7 @@ class MoviesService {
         `${BASE_URL}/tv/popular?api_key=${API_KEY}&language=es-ES&page=1`
       );
 
-      return { error: false, data: {movies, tvSeries}};
+      return { error: false, data: { movies, tvSeries } };
     } catch ({ response }) {
       const { error } = response.data;
       console.error(error);

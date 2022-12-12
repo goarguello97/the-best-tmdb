@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../models/User";
 
 const emailUnique = async (email: string) => {
   if (!email) throw new Error("El email es necesariao.");

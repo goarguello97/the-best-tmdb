@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
-import MoviesController from "../controllers/movie.controllers.js";
-import UserController from "../controllers/user.controllers.js";
+import MoviesController from "../controllers/movie.controllers";
+import UserController from "../controllers/user.controllers";
 const { getPopular, getSpecific, getOne } = MoviesController;
 const { addFav, remFav } = UserController;
 

@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import token from "../config/token.js";
-const { validateToken } = token;
-import { AuthRequest } from "../interfaces/user.interface.js";
+import { validateToken } from "../config/token";
+import { AuthRequest } from "../interfaces/user.interface";
 
 function validateAuth(req: AuthRequest, res: Response, next: NextFunction) {
   const token = req.cookies.token;
