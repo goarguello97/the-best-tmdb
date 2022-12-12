@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import MoviesService from "../services/movie.services.js";
+import MoviesService from "../services/movie.services";
 const { getSpecificService, getPopularService, getOneService } = MoviesService;
 
 class MoviesController {

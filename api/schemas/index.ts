@@ -1,5 +1,6 @@
-import user from "./user.js";
-import login from "./login.js";
-import deleteOrUpdate from "./deleteOrUpdate.js";
+import { user } from "./user";
+import { login } from "./login";
+import { del } from "./del";
+import { update } from "./update";
 
-export default { user, login, deleteOrUpdate };
+export { user, login, del, update };

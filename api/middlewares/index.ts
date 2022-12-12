@@ -1,4 +1,4 @@
-import validateAuth from "./auth.js";
-import validateFields from "./validateFields.js";
+import validateAuth from "./auth";
+import validateFields from "./validateFields";
 
-export default { validateAuth, validateFields };
+export { validateAuth, validateFields };

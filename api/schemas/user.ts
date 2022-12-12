@@ -1,7 +1,7 @@
 import { Schema } from "express-validator";
-import emailUnique from "../helpers/emailUnique.js";
+import emailUnique from "../helpers/emailUnique";
 
-const user: Schema = {
+export const user: Schema = {
   name: {
     notEmpty: { errorMessage: "El nombre es requerido." },
     isLength: {
@@ -29,5 +29,3 @@ const user: Schema = {
     },
   },
 };
-
-export default user;

@@ -1,7 +1,7 @@
-import User from "./User.js";
-import Movie from "./Favorite.js";
+import User from "./User";
+import Movie from "./Favorite";
 
 User.belongsToMany(Movie, { as: "favorites", through: "favorites_movies" });
 Movie.belongsToMany(User, { as: "favorites", through: "favorites_movies" });
 
-export default { User, Movie };
+export { User, Movie}

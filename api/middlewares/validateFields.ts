@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import expressValidator, { Result } from "express-validator";
-const { validationResult } = expressValidator;
+import { validationResult } from "express-validator";
 
 class ValidationErrors {
   public service: Function;

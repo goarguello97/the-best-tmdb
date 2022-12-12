@@ -1,17 +1,22 @@
 import { DataTypes, Model } from "sequelize";
 import bcrypt from "bcrypt";
-import sequelize from "../config/db.js";
+import sequelize from "../config/db";
 
 const salt = bcrypt.genSaltSync(10);
 
 class User extends Model {
   [x: string]: any;
+  password: string;
+  email: string;
+  name: string;
+  lastname: string;
+
   hash(password: string, salt: string) {
     return bcrypt.hashSync(password, salt);
   }
 
-  validatePassword(password: string) {
-    return bcrypt.compareSync(password, this.password);
+  validatePassword(entryPass: string) {
+    return bcrypt.compareSync(entryPass, this.password);
   }
 }
 
