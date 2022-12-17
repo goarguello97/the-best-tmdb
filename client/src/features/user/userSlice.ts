@@ -1,26 +1,28 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 import { User } from "../../interfaces/user.interface";
-import { UsersState } from "../../interfaces/users.interface";
+import { UserState } from "../../interfaces/users.interface";
 
-export const getUsers = createAsyncThunk("GET_USERS", async () => {
-  const users = await axios.get<User[]>("http://localhost:3000/api/users/");
-  return users.data;
+export const getUser = createAsyncThunk("GET_USER", async (data:string, thunkApi) => {
+  const user = await axios.get<User>(
+    "http://localhost:3000/api/users/user/" + data
+  );
+  return user.data;
 });
 
 const initialState = {
   loading: false,
   error: null,
-  users: [],
-} as UsersState;
+  user: {},
+} as UserState;
 
 export const userSlice = createSlice({
-  name: "users",
+  name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getUsers.fulfilled, (state, action: PayloadAction<any>) => {
-      state.users = action.payload;
+    builder.addCase(getUser.fulfilled, (state, action) => {
+      state.user = action.payload;
     });
   },
 });
