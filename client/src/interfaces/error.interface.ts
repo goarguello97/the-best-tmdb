@@ -1,5 +1,4 @@
-export interface User {
-    id:string;
+export interface ErrorInterface {
     name: string;
     email:string,
     lastname:string;

@@ -137,7 +137,7 @@ class UserController {
       const movie = response[0];
       User.findOne({
         where: { email },
-        include: { model: Movie, as: "favorites" },
+        include: { model: Movie, as: "favorites"},
       }).then((user) => {
         if (user.favorites.find((e) => e.movieId == movieId)) {
           res.json({ message: "Ya se encuentra en favoritos." });

@@ -1,7 +1,7 @@
 import User from "./User";
-import Movie from "./Favorite";
+import Movie from "./Movie";
 
-User.belongsToMany(Movie, { as: "favorites", through: "favorites_movies" });
-Movie.belongsToMany(User, { as: "favorites", through: "favorites_movies" });
+User.hasMany(Movie, { as: "favorites", foreignKey: "usersId" });
+Movie.hasMany(User, { as: "users", foreignKey: "moviesId" });
 
-export { User, Movie}
+export { User, Movie };

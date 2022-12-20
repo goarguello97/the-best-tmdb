@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { validateToken } from "../config/token";
 import { AuthRequest } from "../interfaces/user.interface";
 
