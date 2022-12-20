@@ -10,5 +10,5 @@ export interface user {
 }
 
 export interface AuthRequest extends Request {
-  [prop: string]: any;
+  user: {}
 }

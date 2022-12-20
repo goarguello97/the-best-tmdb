@@ -8,6 +8,7 @@ Movie.init(
     movieId: {
       type: DataTypes.UUID,
       allowNull: false,
+      primaryKey: true,
     },
     movieTitle: {
       type: DataTypes.TEXT,
@@ -21,7 +22,7 @@ Movie.init(
     movieGenre: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
   },
   {
     sequelize,
