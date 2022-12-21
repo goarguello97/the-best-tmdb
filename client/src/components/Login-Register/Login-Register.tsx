@@ -2,12 +2,14 @@ import "./Login-Register.css";
 import { REGISTER_INITIAL_VALUES } from "../../constants/constants";
 import { validationLogin, validationRegister } from "../../helpers/validations";
 import useForm from "../../hooks/useForm";
-import { login, register } from "../../features/user/authSlice";
+import { login, register, setAuth } from "../../features/user/authSlice";
 import { useEffect, useState } from "react";
 import { afterRegister, resetForm } from "../../helpers/functions";
-import { useAppSelector } from "../../hooks/useTypedSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  const { auth } = useAppSelector((state) => state.auth);
   const [loginCheck, setLoginCheck] = useState(true);
   const [registerCheck, setRegisterCheck] = useState(false);
   const submit = loginCheck ? login : register;
@@ -18,15 +20,33 @@ const Login = () => {
     validations
   );
 
-  const { auth } = useAppSelector((state) => state.auth);
+  const success = () => {
+    if (auth.status === 201) {
+      setTimeout(() => {
+        dispatch(setAuth({}));
+        window.location.reload();
+      }, 5000);
+    }else if(auth.status === 401 ){
+      setTimeout(() => {
+        dispatch(setAuth({}));
+      }, 5000);
+    }
+  };
 
   useEffect(() => {
     resetForm(REGISTER_INITIAL_VALUES, setValues);
-	
+    success();
   }, [loginCheck, auth]);
+  console.log(auth);
   return (
     <>
-      <div className="login-wrap">
+      <div
+        className={
+          Object.keys(errors).length !== 0 && registerCheck
+            ? "login-wrap2"
+            : "login-wrap"
+        }
+      >
         <div className="login-html">
           <input
             id="tab-1"
@@ -86,10 +106,6 @@ const Login = () => {
                     value={values.password}
                   />
                 </div>
-                {/* <div className="group">
-					<input id="check" type="checkbox" className="check" checked />
-					<label htmlFor="check"><span className="icon"></span> Keep me Signed in</label>
-				</div> */}
                 <div className="group">
                   <input
                     type="submit"
@@ -97,10 +113,20 @@ const Login = () => {
                     value="Iniciar sesión"
                   />
                 </div>
+                {Object.keys(errors).length !== 0
+                  ? Object.values(errors).map((error: any, i) => (
+                      <div key={i} className="group groupError">
+                        {error}
+                      </div>
+                    ))
+                  : null}
+                {auth.status === 401 ? (
+                  <div className="group groupError">{auth.message}</div>
+                ) : null}
                 <div className="hr"></div>
-                <div className="foot-lnk">
+                {/* <div className="foot-lnk">
                   <a href="#forgot">¿Olvidaste tu contraseña?</a>
-                </div>
+                </div> */}
               </div>
             </form>
             <form onSubmit={handleSubmit}>
@@ -175,6 +201,18 @@ const Login = () => {
                 <div className="group">
                   <input type="submit" className="button" value="Registrarse" />
                 </div>
+                {auth.message ? (
+                  <div className="group groupSuccess">{auth.message}</div>
+                ) : (
+                  ""
+                )}
+                {Object.keys(errors).length !== 0
+                  ? Object.values(errors).map((error: any, i) => (
+                      <div key={i} className="group groupError">
+                        {error}
+                      </div>
+                    ))
+                  : null}
                 <div className="hr"></div>
                 <div className="foot-lnk">
                   <label htmlFor="tab-1">¿Ya eres miembro?</label>

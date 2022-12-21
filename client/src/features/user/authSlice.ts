@@ -11,8 +11,8 @@ export const login = createAsyncThunk("LOGIN", async (data: {}, thunkApi) => {
     );
     return login.data;
   } catch (error: any) {
-    const { message } = error;
-    return thunkApi.rejectWithValue(message);
+    const { response } = error;
+    return { message: response.data.message, status: response.status };
   }
 });
 
@@ -24,7 +24,7 @@ export const register = createAsyncThunk(
         "http://localhost:3000/api/users/",
         data
       );
-      
+
       return newUser.status;
     } catch (error: any) {
       const { message } = error;
@@ -39,6 +39,15 @@ export const persist = createAsyncThunk("ME", async (data, thunkApi) => {
       withCredentials: true,
     });
     return persist.data;
+  } catch (error: any) {
+    const { message } = error;
+    return thunkApi.rejectWithValue(message);
+  }
+});
+
+export const setAuth = createAsyncThunk("SET_AUTH", (data: {}, thunkApi) => {
+  try {
+    return data;
   } catch (error: any) {
     const { message } = error;
     return thunkApi.rejectWithValue(message);
@@ -81,6 +90,15 @@ export const authSlice = createSlice({
       state.auth = action.payload;
     });
     builder.addCase(persist.rejected, (state, action: PayloadAction<any>) => {
+      state.error = action.payload;
+    });
+    builder.addCase(setAuth.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(setAuth.fulfilled, (state, action: PayloadAction<any>) => {
+      state.auth = action.payload;
+    });
+    builder.addCase(setAuth.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
     });
   },

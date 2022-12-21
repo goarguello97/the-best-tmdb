@@ -4,10 +4,10 @@ import { User } from "../interfaces/user.interface";
 export const validationRegister = (values: User) => {
   let errors = {} as ErrorInterface;
   let nameRegex = new RegExp(
-    /^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$/
+    /^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚúÜü]+)(\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$/
   );
   let lastnameRegex = new RegExp(
-    /^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$/
+    /^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚúÜü]+)(\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$/
   );
   let emailRegex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
   let passwordRegex = new RegExp(
@@ -34,11 +34,11 @@ export const validationRegister = (values: User) => {
   }
 
   if (!values.email) {
-    errors.email = "El email es obligatorio";
+    errors.email = "El email es obligatorio.";
   } else if (!emailRegex.test(values.email)) {
-    errors.email = "El email no es válido";
+    errors.email = "El email no es válido.";
   } else if (values.email.length > 50) {
-    errors.email = "El email no debe poseer más de 50 caracteres";
+    errors.email = "El email no debe poseer más de 50 caracteres.";
   }
 
   if (!values.password) {
@@ -65,11 +65,11 @@ export const validationLogin = (values: User) => {
   );
 
   if (!values.email) {
-    errors.email = "El email es obligatorio";
+    errors.email = "El email es obligatorio.";
   } else if (!emailRegex.test(values.email)) {
-    errors.email = "El email no es válido";
+    errors.email = "El email no es válido.";
   } else if (values.email.length > 50) {
-    errors.email = "El email no debe poseer más de 50 caracteres";
+    errors.email = "El email no debe poseer más de 50 caracteres.";
   }
 
   if (!values.password) {
