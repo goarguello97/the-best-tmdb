@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { AuthRequest } from "../interfaces/user.interface";
 import { generateToken } from "../config/token";
-import {User, Movie} from "../models/index"
+import { User, Movie } from "../models/index";
+import CustomError from "../helpers/CustomError";
 
 class UserController {
   static async getUsers(req: Request, res: Response, next: NextFunction) {
@@ -69,13 +70,13 @@ class UserController {
 
   static async loginUser(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
-    User.findOne({ where: { email }})
+    User.findOne({ where: { email } })
       .then((user) => {
-        if (!user)
-          return res.status(401).json({ message: "No existe el usuario" });
+        if (!user) throw new CustomError("Usuario no encontrado", 404);
+        // return res.status(401).json({ message: "No existe el usuario" });
         const isValid = user.validatePassword(password);
-        if (!isValid)
-          return res.status(401).json({ message: "Contraseña incorrecta" });
+        if (!isValid) throw new CustomError("Credenciales inválidas", 401);
+        // return res.status(401).json({ message: "Contraseña incorrecta" });
         const payload = {
           email: user.email,
           name: user.name,
@@ -86,7 +87,9 @@ class UserController {
         res.cookie("token", token);
         res.status(200).json({ payload, token });
       })
-      .catch((error) => console.log("ERROR", error));
+      .catch((error) => {
+        res.status(error.status || 401).json({ message: error.message });
+      });
   }
 
   static async updateUser(req: AuthRequest, res: Response, next: NextFunction) {
@@ -137,7 +140,7 @@ class UserController {
       const movie = response[0];
       User.findOne({
         where: { email },
-        include: { model: Movie, as: "favorites"},
+        include: { model: Movie, as: "favorites" },
       }).then((user) => {
         if (user.favorites.find((e) => e.movieId == movieId)) {
           res.json({ message: "Ya se encuentra en favoritos." });
@@ -161,8 +164,10 @@ class UserController {
       },
     }).then((response) => {
       const movie = response[0];
-      User.findOne({ where: { email } ,
-        include: { model: Movie, as: "favorites" },}).then((user) => {
+      User.findOne({
+        where: { email },
+        include: { model: Movie, as: "favorites" },
+      }).then((user) => {
         if (user.favorites.find((e) => e.movieId == movieId)) {
           user.removeFavorites(movie);
           res.json({ message: "Removida de favoritos satisfactoriamente." });
