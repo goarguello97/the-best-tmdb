@@ -1,0 +1,44 @@
+.modal-header-custom {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+
+  background: url("../../assets/img/fondo-login.jpg") no-repeat center;
+}
+
+.modal-content-custom {
+  height: 100%;
+  background-color: rgba(42, 48, 64, 0.9) !important;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 0px;
+  right: 3px;
+  color: #aaa;
+  z-index: 2000;
+}
+
+.close-button > h3{
+    font-size: 20px;
+}
+
+@media screen and (min-width: 768px){
+    .modal-header-custom {
+        width: 80% !important;
+    }
+    .modal-content{
+        border:none;
+        background-color: transparent;
+    }
+}
+@media screen and (min-width: 1024px){
+    .modal-header-custom {
+        width: 60% !important;
+    }
+    .modal-content{
+        border:none;
+        background-color: transparent;
+    }
+}

@@ -37,7 +37,6 @@ const Login = () => {
     resetForm(REGISTER_INITIAL_VALUES, setValues);
     success();
   }, [loginCheck, auth]);
-  console.log(auth);
   return (
     <>
       <div
@@ -215,7 +214,7 @@ const Login = () => {
                   : null}
                 <div className="hr"></div>
                 <div className="foot-lnk">
-                  <label htmlFor="tab-1">¿Ya eres miembro?</label>
+                  <label htmlFor="tab-1" className="member">¿Ya eres miembro?</label>
                 </div>
               </div>
             </form>
