@@ -75,7 +75,7 @@ const Navbar = () => {
               <li>
                 <a
                   href="#"
-                  className={colorScroll}
+                  className={`${colorScroll} sign-in`}
                   onClick={() => setModalShow(true)}
                 >
                   Iniciar sesión

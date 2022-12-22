@@ -20,6 +20,14 @@ body {
   position: fixed;
   line-height: 65px;
   text-align: center;
+  background-color: rgba(17, 17, 17, 0.5);
+}
+
+.sign-in {
+  background-color: rgba(255, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 25px;
+  font-weight: 500;
 }
 
 .nav div.logo {
@@ -48,7 +56,6 @@ body {
   width: 180px;
   margin-top: auto;
 }
-
 
 .nav div.main_list {
   height: 65px;
@@ -97,8 +104,6 @@ body {
 }
 
 .nav {
-  padding-top: 20px;
-  padding-bottom: 20px;
   -webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }
@@ -163,7 +168,7 @@ body {
   margin: auto;
   position: absolute;
   right: 30px;
-  top: 40px;
+  top: 5px;
   bottom: 0;
 }
 

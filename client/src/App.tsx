@@ -1,7 +1,8 @@
-import Login from "./components/Login-Register/Login-Register";
+// import Login from "./components/Login-Register/Login-Register";
 // import Lorem from "./components/Lorem/Lorem";
 import Navbar from "./components/Navbar/Navbar";
-import Modal from "./components/Modal/Modal"
+import Landing from "./pages/Landing";
+// import Modal from "./components/Modal/Modal"
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Navbar />
       {/* <Login/> */}
       {/* <Modal/> */}
+      <Landing />
     </>
   );
 }
