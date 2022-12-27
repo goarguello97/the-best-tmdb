@@ -1,12 +1,23 @@
-import React from "react";
-import movie from "../assets/videos/movieMashup.mp4"
+import logo from "../assets/img/TMDB.svg";
+import { Link } from "react-router-dom";
 const Landing = () => {
+
   return (
     <div className="landing">
-      <video src={movie} autoPlay muted loop id="myVideo">
+      {/* <video src={movie} autoPlay muted loop id="myVideo">
         
-      </video>
-        <div className='landing-box'>cosa2</div>
+      </video> */}
+      <div className="content">
+        <img src={logo} alt="Logo" className="logo-landing" />
+        <div className="content-landing">
+          <h3 className="title-landing">
+            Tus peliculas favoritas en un solo lugar.
+          </h3>
+          <Link to="register" className="button-landing">
+            Registrate ahora
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

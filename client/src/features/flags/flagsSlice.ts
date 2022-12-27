@@ -6,8 +6,8 @@ import {
 
 export const submitted = createAsyncThunk(
   "SUBMITTED",
-  (data: boolean | null = false, thunkApi) => {
-    return !data;
+  ( thunkApi) => {
+    return !false;
   }
 );
 

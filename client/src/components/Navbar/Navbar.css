@@ -1,13 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Quicksand:400,500,700");
-html,
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Quicksand", sans-serif;
-  font-size: 62.5%;
-  font-size: 10px;
-}
+
 
 /*-- Inspiration taken from abdo steif -->
 /* --> https://codepen.io/abdosteif/pen/bRoyMb?editors=1100*/
@@ -20,14 +12,25 @@ body {
   position: fixed;
   line-height: 65px;
   text-align: center;
-  background-color: rgba(17, 17, 17, 0.5);
+  /* background-color: rgba(17, 17, 17, 0.5); */
+  background-color: transparent;
+  box-shadow: inset 0px 74px 56px -37px rgba(0,0,0,0.1);
+  z-index: 3;
+}
+
+.container{
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .sign-in {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: rgba(226, 109, 92, 0.7);
   padding: 5px 10px;
   border-radius: 25px;
   font-weight: 500;
+}
+.sign-in:hover {
+  background-color: rgba(226, 109, 92, 1);
 }
 
 .nav div.logo {
@@ -80,24 +83,17 @@ body {
 
 .nav div.main_list ul li a {
   text-decoration: none;
-  color: #000;
+  color: #f9f9f9;
   line-height: 65px;
   font-size: 2.4rem;
+  transition: all 0.375s;
 }
 
 .nav div.main_list ul li a:hover {
-  color: #adadad;
+  color: #f9f9f9;
 }
 
 /* Home section */
-
-.home {
-  width: 100%;
-  height: 100vh;
-  background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b0f6908fa5e81286213c7211276e6b3d&auto=format&fit=crop&w=1500&q=80);
-  background-position: center top;
-  background-size: cover;
-}
 
 .navTrigger {
   display: none;
