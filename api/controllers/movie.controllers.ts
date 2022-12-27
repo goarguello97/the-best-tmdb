@@ -8,19 +8,18 @@ class MoviesController {
     const { error, data } = await getSpecificService(search);
 
     if (error) {
-      return res.status(data.status || 500).json({ message: data.message });
+      return res.status(500).json({ message: data.status_message });
     }
-    res.status(data.status || 200).json(data);
+    res.status(200).json(data);
   }
 
   static async getPopular(req: Request, res: Response) {
     const { error, data } = await getPopularService();
 
     if (error) {
-      return res.status(data.status || 500).json({ message: data.message });
+      return res.status(500).json({ message: data.status_message });
     }
-
-    res.json(data);
+    res.status(200).send(data);
   }
 
   static async getOne(req: Request, res: Response) {
@@ -28,10 +27,10 @@ class MoviesController {
     const { error, data } = await getOneService(id);
 
     if (error) {
-      return res.status(data.status || 500).json({ message: data.message });
+      return res.status(500).json({ message: data.status_message });
     }
 
-    res.json(data);
+    res.status(200).json(data);
   }
 }
 

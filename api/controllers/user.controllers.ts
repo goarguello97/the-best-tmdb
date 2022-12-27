@@ -179,7 +179,7 @@ class UserController {
   }
 
   static async secret(req: AuthRequest, res: Response, next: NextFunction) {
-    res.status(200).json(req.user);
+   res.json(req.user)
   }
 
   static async logoutUser(req: Request, res: Response, next: NextFunction) {

@@ -25,7 +25,7 @@ export const register = createAsyncThunk(
         data
       );
 
-      return newUser.status;
+      return { status: newUser.status, message: newUser.data.message };
     } catch (error: any) {
       const { message } = error;
       return thunkApi.rejectWithValue(message);
@@ -55,9 +55,10 @@ export const setAuth = createAsyncThunk("SET_AUTH", (data: {}, thunkApi) => {
 });
 
 const initialState = {
-  loading: false,
   error: null,
-  auth: {},
+  user: {},
+  isUserLoggedIn: null,
+  isLoading: true,
 } as AuthState;
 
 export const authSlice = createSlice({
@@ -66,37 +67,41 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state, action) => {
-      state.loading = true;
+      state.isLoading = true;
     });
     builder.addCase(login.fulfilled, (state, action) => {
-      state.auth = action.payload;
+      state.user = action.payload;
+      state.isUserLoggedIn = true;
+      state.isLoading = false;
     });
     builder.addCase(login.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
     });
     builder.addCase(register.pending, (state, action) => {
-      state.loading = true;
+      state.isLoading = true;
     });
     builder.addCase(register.fulfilled, (state, action: PayloadAction<any>) => {
-      state.auth = action.payload;
+      state.user = action.payload;
     });
     builder.addCase(register.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
     });
     builder.addCase(persist.pending, (state, action) => {
-      state.loading = true;
+      state.isLoading = true;
     });
-    builder.addCase(persist.fulfilled, (state, action) => {
-      state.auth = action.payload;
+    builder.addCase(persist.fulfilled, (state, action: PayloadAction<any>) => {
+      state.user = action.payload;
+      state.isUserLoggedIn = true;
+      state.isLoading = false;
     });
     builder.addCase(persist.rejected, (state, action: PayloadAction<any>) => {
-      state.error = action.payload;
+      state.isLoading = false;
     });
     builder.addCase(setAuth.pending, (state, action) => {
-      state.loading = true;
+      state.isLoading = true;
     });
     builder.addCase(setAuth.fulfilled, (state, action: PayloadAction<any>) => {
-      state.auth = action.payload;
+      state.user = action.payload;
     });
     builder.addCase(setAuth.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;

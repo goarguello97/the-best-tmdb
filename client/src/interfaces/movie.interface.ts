@@ -1,12 +1,15 @@
-export interface AddMovie {
+export interface Movies {
   loading: boolean;
   error: string | null;
-  add: Movie;
+  movies: Movie;
 }
 
-interface Movie {
-    movieId: string;
-    movieTitle: string;
-    movieDate: string;
-    movieGenre: string;
+interface Movie  {
+  movies: []
+  tvSeries:[] 
+  categories: {
+    Horror: []
+    Drama: []
+    Comedy: []
+  },
 }

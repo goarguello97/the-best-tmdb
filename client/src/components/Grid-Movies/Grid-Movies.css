@@ -1,0 +1,9 @@
+.grid-movies {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }

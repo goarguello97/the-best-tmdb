@@ -1,0 +1,229 @@
+.principal-cover {
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+  /* background-color: aquamarine; */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(51, 92, 103, 1) 84%,
+    rgba(144, 206, 161, 1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.principal-cover > h3 {
+  font-size: 40px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  margin-top: 20px;
+  color: white;
+}
+.principal-cover > h1 {
+  font-size: 55px;
+  font-weight: 800;
+  margin-left: 10px;
+  margin-bottom: 2px;
+  color: white;
+}
+.principal-cover > span {
+  font-size: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.principal-cover > span > ul {
+  margin: 0;
+}
+
+.principal-cover > p {
+  width: 40%;
+  font-size: 18px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: white;
+}
+
+.description-movie {
+  display: block;
+}
+
+.see-more {
+  font-size: 15px !important;
+}
+
+.buttons-cover {
+    width: 40%;
+    height: 5.3rem;
+    margin-bottom: 20px;
+    display: flex;
+  }
+  
+  .buttons-cover > button {
+    width: auto;
+    height: auto;
+    margin-left: 10px;
+    margin-right: 15px;
+    padding: 0.5rem;
+    border-radius: 35px;
+    font-size: 5.3rem;
+    font-weight: 600;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
+    transition: 0.2s all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .buttons-cover > button:hover {
+    background-color: transparent;
+    color: rgba(226, 109, 92, 0.7);
+    padding: 0.5rem;
+  }
+  
+  .buttons-cover-mobile > button {
+    width: 5.5rem;
+    height: auto;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 7px;
+    border-radius: 35px;
+    font-size: 5.3rem;
+    font-weight: 600;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
+    transition: 0.2s all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+  .buttons-cover-mobile > button:hover {
+    background-color: transparent;
+    color: rgba(226, 109, 92, 0.7);
+    display: none;
+  }
+
+@media screen and (max-width: 399px) {
+  .principal-cover {
+    width: 100vw;
+    height: auto;
+    min-height: 0;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .principal-cover > h3 {
+    font-size: 20px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+  }
+  .principal-cover > h1 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-left: 10px;
+    margin-bottom: 2px;
+  }
+  .principal-cover > span {
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+
+  .principal-cover > span > ul {
+    margin: 0;
+  }
+
+  .description-movie {
+    display: none;
+  }
+
+  .buttons-cover {
+    display: none;
+  }
+
+  .buttons-cover-mobile {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .buttons-cover-mobile > button {
+    display: block;
+  }
+  .buttons-cover-mobile > button:hover {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 768px) {
+  .principal-cover {
+    width: 100vw;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .principal-cover > h3 {
+    font-size: 20px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
+  .principal-cover > h1 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-left: 10px;
+    margin-bottom: 2px;
+  }
+  .principal-cover > span {
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+
+  .principal-cover > span > ul {
+    margin: 0;
+  }
+
+  .principal-cover > p {
+    width: 100%;
+    max-width: 400px;
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .see-more {
+    display: none;
+  }
+
+  .buttons-cover {
+    display: none;
+  }
+
+  .buttons-cover-mobile {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .buttons-cover-mobile > button {
+    display: block;
+  }
+  .buttons-cover-mobile > button:hover {
+    display: block;
+  }
+}

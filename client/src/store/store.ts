@@ -10,7 +10,7 @@ const store = configureStore({
     users: usersReducer,
     user: userReducer,
     auth: authSlice,
-    addOrRemove: movieSlice,
+    movies: movieSlice,
     flag: flagsSlice,
   },
 });

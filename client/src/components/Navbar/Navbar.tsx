@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import logo from "../../assets/img/TMDB.svg";
-import Modal from "../Modal/Modal";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -38,18 +38,22 @@ const Navbar = () => {
 
   useEffect(() => {
     scrollFunction();
-    return;
-  }, []);
+  }, [modalShow]);
 
   return (
     <>
       <nav className={navClass}>
         <div className="container">
           <div className="logo">
-            <a href="#" className={colorScroll}>
-              <img src={logo} alt="Logo de TMDB" className="logo" />
-            </a>
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Logo de TMDB"
+                className={`logo ${colorScroll}`}
+              />
+            </Link>
           </div>
+
           <div className={mainList} id="mainListDiv">
             <ul>
               <li>
@@ -73,16 +77,12 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className={colorScroll}
-                  onClick={() => setModalShow(true)}
+                <Link
+                  to="/login"
+                  className={`${colorScroll} sign-in`}
                 >
                   Iniciar sesión
-                </a>
-              </li>
-              <li onClick={mediaButton}>
-                <Modal show={modalShow} onHide={() => setModalShow(false)} />
+                </Link>
               </li>
             </ul>
           </div>

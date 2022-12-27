@@ -9,5 +9,5 @@ export interface UsersState {
 export interface UserState {
   loading: boolean;
   error: string | null;
-  user: {};
+  user: User;
 }

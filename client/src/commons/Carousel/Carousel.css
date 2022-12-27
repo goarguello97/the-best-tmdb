@@ -1,0 +1,48 @@
+.carousel-container {
+  width: 95%;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-top: 20px;
+}
+
+.carousel-container > h1{
+    margin-bottom: 20px;
+    font-size: 3.5rem;
+  }
+
+.glider-prev {
+  font-size: 3.5rem;
+  left: -33px;
+}
+.glider-next {
+  font-size: 3.5rem;
+  right: -33px;
+}
+.glider-dot{
+    color: transparent;
+    background: rgba(226, 109, 92, 0.7);
+}
+.glider-dot.active{
+    color: transparent;
+    background: rgba(226, 109, 92, 1);
+}
+
+.carousel_item {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
+
+@media screen and (min-width: 775px) {
+  .carousel-container {
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .glider-prev {
+    left: -38px;
+  }
+  .glider-next {
+    right: -38px;
+  }
+}
