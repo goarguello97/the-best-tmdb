@@ -1,23 +1,36 @@
 import "./Grid-Movies.css";
-import { useEffect } from "react";
 import Carousel from "../../commons/Carousel/Carousel";
-import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
-import { getPopular } from "../../features/movies/movieSlice";
+import { useAppSelector } from "../../hooks/useTypedSelector";
 
 const GridMovies = () => {
-  const { movies, loading } = useAppSelector((state) => state.movies);
-  
-  console.log(movies);
+  const { movies } = useAppSelector((state) => state.movies);
   return (
     <div className="grid-movies">
-      <Carousel category={"Peliculas recomendadas"} data={movies.movies} />
       <Carousel
+        idName="recomended"
+        category={"Peliculas recomendadas"}
+        data={movies.movies}
+      />
+      <Carousel
+        idName="tv"
         category={"Programas de tv recomendados"}
         data={movies.tvSeries}
       />
-      <Carousel category={"Terror"} data={movies.categories.Horror} />
-      <Carousel category={"Comedia"} data={movies.categories.Comedy} />
-      <Carousel category={"Drama"} data={movies.categories.Drama} />
+      <Carousel
+        idName="Horror"
+        category={"Terror"}
+        data={movies.categories.Horror}
+      />
+      <Carousel
+        idName="Comedy"
+        category={"Comedia"}
+        data={movies.categories.Comedy}
+      />
+      <Carousel
+        idName="Drama"
+        category={"Drama"}
+        data={movies.categories.Drama}
+      />
     </div>
   );
 };
