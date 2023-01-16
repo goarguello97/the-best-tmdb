@@ -1,60 +1,81 @@
-import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-import image1 from "../../assets/img/Caratulas/1.jpg";
-import image2 from "../../assets/img/Caratulas/2.jpg";
-import image3 from "../../assets/img/Caratulas/3.jpg";
-import image4 from "../../assets/img/Caratulas/4.jpg";
-import image5 from "../../assets/img/Caratulas/5.jpg";
-import image6 from "../../assets/img/Caratulas/6.jpg";
-import image7 from "../../assets/img/Caratulas/7.jpg";
-import image8 from "../../assets/img/Caratulas/8.jpg";
-import image9 from "../../assets/img/Caratulas/9.jpg";
-import image10 from "../../assets/img/Caratulas/10.jpg";
-import Glider from "react-glider";
-import "glider-js/glider.min.css";
+import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
+import { BsBookmarkHeart, BsPlayCircle } from "react-icons/bs";
+
 import "./Carousel.css";
 
 const Carousel = ({
+  idName,
   category,
   data,
 }: {
+  idName: string;
   category: string | null;
   data: [];
 }) => {
-  console.log(data);
-  return (
-    <div className="carousel-container">
-      <h1>{category}</h1>
-      <Glider
-        className="glider-container"
-        hasArrows
-        hasDots={false}
-        iconLeft={<BiLeftArrow />}
-        iconRight={<BiRightArrow />}
-        slidesToShow={1}
-        slidesToScroll={1}
-        rewind
-        responsive={[
-          {
-            breakpoint: 775,
-            settings: {
-              slidesToShow: "auto",
-              slidesToScroll: "auto",
-              itemWidth: 250,
+  const fila = document.querySelector(
+    ".container-carousel"
+  ) as HTMLElement | null;
 
-              duration: 0.25,
-            },
-          },
-        ]}
-      >
-        {data?.map((movie: { backdrop_path: string }, i) => (
-          <div className="carousel_item">
-            <img
-              src={`https://image.tmdb.org/t/p/w342${movie.backdrop_path}`}
-              alt=""
-            />
+  const next = () => {
+    fila!.scrollLeft += fila!.offsetWidth / 2;
+  };
+
+  const prev = () => {
+    fila!.scrollLeft -= fila!.offsetWidth / 2;
+  };
+
+  return (
+    <div className="movies mobile-container">
+      <div className="title">
+        <h3>{category}</h3>
+      </div>
+
+      <div className="principal-container">
+        <button
+          role="button"
+          id="left-arrow"
+          className="left-arrow"
+          onClick={prev}
+        >
+          <MdOutlineNavigateBefore />
+        </button>
+
+        <div className="container-carousel">
+          <div className="carousel">
+            {data?.map((movie: { backdrop_path: string }, i) => (
+              <div
+                className="movie"
+                key={i}
+                style={{
+                  backgroundImage: `url(https://image.tmdb.org/t/p/w342${movie.backdrop_path})`,
+                }}
+              >
+                {/* <img
+                  src={`https://image.tmdb.org/t/p/w342${movie.backdrop_path}`}
+                  alt=""
+                /> */}
+                <div className="pelicula-options">
+                  <button>
+                    <BsPlayCircle />
+                  </button>
+                  <button>
+                    <BsBookmarkHeart />
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </Glider>
+        </div>
+
+        <button
+          role="button"
+          id="right-arrow"
+          className="right-arrow"
+          onClick={next}
+        >
+          <MdOutlineNavigateNext />
+        </button>
+      </div>
     </div>
   );
 };
