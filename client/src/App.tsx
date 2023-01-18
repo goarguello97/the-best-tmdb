@@ -28,14 +28,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/register"
-          element={
-            <PrivateRoute>
-              <Register />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/register" element={<Register />} />
         {/* <Login/> */}
         {/* <Modal/> */}
         {/* <Landing /> */}

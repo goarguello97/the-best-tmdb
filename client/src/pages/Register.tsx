@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { auth } = useAppSelector((state) => state.auth);
+  const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -18,10 +18,10 @@ const Login = () => {
   );
 
   useEffect(() => {
-    if (auth.status === 201) {
+    if (auth.isUserLoggedIn) {
       navigate("/");
     }
-  }, [dispatch]);
+  }, [auth]);
 
   console.log(auth);
   return (
@@ -66,9 +66,9 @@ const Login = () => {
               onChange={handleChange}
               value={values.password2}
             />
-            {auth.message ? (
+            {/* {auth.message ? (
               <div className="login-form-success">{auth.message}</div>
-            ) : null}
+            ) : null} */}
             {Object.keys(errors).length !== 0
               ? Object.values(errors).map((error: any, i) => (
                   <div key={i} className="login-form-error">
