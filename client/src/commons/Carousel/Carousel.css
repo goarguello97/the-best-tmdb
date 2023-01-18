@@ -10,20 +10,6 @@
   margin-left: 10px;
 }
 
-.title .indicadores button {
-  background: #fff;
-  height: 3px;
-  width: 10px;
-  cursor: pointer;
-  border: none;
-  margin-right: 2px;
-}
-
-.title .indicadores button:hover,
-.title .indicadores button.activo {
-  background: red;
-}
-
 .movies {
   margin: 20px 0;
 }
@@ -63,7 +49,11 @@
   right: 15px;
 }
 
-.movies .container-carousel {
+.container-carousel-recomended,
+.container-carousel-tv,
+.container-carousel-Horror,
+.container-carousel-Drama,
+.container-carousel-Comedy {
   width: 90%;
   margin: 0 auto;
   padding: 20px 0;
@@ -71,12 +61,12 @@
   scroll-behavior: smooth;
 }
 
-.movies .container-carousel .carousel {
+.carousel {
   display: flex;
   flex-wrap: nowrap;
 }
 
-.movies .container-carousel .carousel .movie {
+.movie {
   min-width: 345px;
   width: 20%;
   min-height: 100%;
@@ -89,12 +79,12 @@
   position: relative;
 }
 
-.movies .container-carousel .carousel .movie:hover {
+.movie:hover {
   transform: scale(1.1);
   transform-origin: center;
 }
 
-.movies .container-carousel .carousel .movie .pelicula-options {
+.movie-options {
   width: 100%;
   height: 100%;
   opacity: 0;
@@ -102,11 +92,11 @@
   justify-content: center;
   align-items: center;
 }
-.movies .container-carousel .carousel .movie .pelicula-options:hover {
+.movie-options:hover {
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.3);
 }
-.movies .container-carousel .carousel .movie .pelicula-options button {
+.movie-options button {
   margin: 0 10px;
   background-color: transparent;
   color: rgba(255, 255, 255, 0.7);
@@ -114,26 +104,35 @@
   font-size: 5rem;
   font-weight: 600;
 }
-.movies .container-carousel .carousel .movie .pelicula-options button:hover {
+.movies
+  .container-carousel-recomended
+  .carousel
+  .movie
+  .movie-options
+  button:hover {
   color: rgba(226, 109, 92, 0.7);
 }
 
-.movies .container-carousel .carousel .movie img {
+ .movie img {
   width: 90%;
   margin: 0 auto;
   vertical-align: top;
 }
 
 @media screen and (max-width: 800px) {
-  .movies .container-carousel {
+  .container-carousel-recomended,
+.container-carousel-tv,
+.container-carousel-Horror,
+.container-carousel-Drama,
+.container-carousel-Comedy  {
     overflow: scroll;
   }
 
-  .movies .principal-container .left-arrow {
+  .principal-container .left-arrow {
     display: none;
   }
 
-  .movies .principal-container .right-arrow {
+  .principal-container .right-arrow {
     display: none;
   }
 }

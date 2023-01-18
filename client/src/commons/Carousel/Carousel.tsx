@@ -12,17 +12,19 @@ const Carousel = ({
   category: string | null;
   data: [];
 }) => {
-  const fila = document.querySelector(
-    ".container-carousel"
-  ) as HTMLElement | null;
+
+
+  const carousel = document.querySelector(`.container-carousel-${idName}`
+  )! as HTMLElement ;
 
   const next = () => {
-    fila!.scrollLeft += fila!.offsetWidth / 2;
+    carousel.scrollLeft += carousel!.offsetWidth / 2;
   };
 
   const prev = () => {
-    fila!.scrollLeft -= fila!.offsetWidth / 2;
+    carousel.scrollLeft -= carousel!.offsetWidth / 2;
   };
+
 
   return (
     <div className="movies mobile-container">
@@ -40,7 +42,7 @@ const Carousel = ({
           <MdOutlineNavigateBefore />
         </button>
 
-        <div className="container-carousel">
+        <div className={`container-carousel-${idName}`}>
           <div className="carousel">
             {data?.map((movie: { backdrop_path: string }, i) => (
               <div
@@ -49,12 +51,8 @@ const Carousel = ({
                 style={{
                   backgroundImage: `url(https://image.tmdb.org/t/p/w342${movie.backdrop_path})`,
                 }}
-              >
-                {/* <img
-                  src={`https://image.tmdb.org/t/p/w342${movie.backdrop_path}`}
-                  alt=""
-                /> */}
-                <div className="pelicula-options">
+              >                
+                <div className="movie-options">
                   <button>
                     <BsPlayCircle />
                   </button>
