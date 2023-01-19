@@ -34,8 +34,8 @@ const initialState = {
   movies: {},
 } as Movies;
 
-export const movieSlice = createSlice({
-  name: "movie",
+export const moviesSlice = createSlice({
+  name: "movies",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -55,4 +55,4 @@ export const movieSlice = createSlice({
   },
 });
 
-export default movieSlice.reducer;
+export default moviesSlice.reducer;

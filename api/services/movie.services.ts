@@ -84,11 +84,12 @@ class MoviesService {
   static async getOneService(id: string) {
     try {
       const resp = await axios.get(
-        `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=es-ES`
+        `${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,images&language=es-ES`
       );
 
       return { error: false, data: resp.data };
     } catch ({ response }) {
+
       const error = response.data;
       return { error: true, data: error };
     }

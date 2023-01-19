@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Loader from "../commons/Loader/Loader";
 import GridMovies from "../components/Grid-Movies/Grid-Movies";
 import PrincipalCover from "../components/Principal-Cover/Principal-Cover";
-import { getPopular } from "../features/movies/movieSlice";
+import { getPopular } from "../features/movies/moviesSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 
 const Home = () => {

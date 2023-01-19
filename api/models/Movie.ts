@@ -6,7 +6,7 @@ class Movie extends Model {}
 Movie.init(
   {
     movieId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
     },
@@ -20,7 +20,7 @@ Movie.init(
       allowNull: false,
     },
     movieGenre: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.JSON),
       allowNull: false,
     },
   },

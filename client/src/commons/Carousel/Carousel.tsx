@@ -2,6 +2,7 @@ import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
 import { BsBookmarkHeart, BsPlayCircle } from "react-icons/bs";
 
 import "./Carousel.css";
+import { Link } from "react-router-dom";
 
 const Carousel = ({
   idName,
@@ -12,10 +13,9 @@ const Carousel = ({
   category: string | null;
   data: [];
 }) => {
-
-
-  const carousel = document.querySelector(`.container-carousel-${idName}`
-  )! as HTMLElement ;
+  const carousel = document.querySelector(
+    `.container-carousel-${idName}`
+  )! as HTMLElement;
 
   const next = () => {
     carousel.scrollLeft += carousel!.offsetWidth / 2;
@@ -25,7 +25,7 @@ const Carousel = ({
     carousel.scrollLeft -= carousel!.offsetWidth / 2;
   };
 
-
+  console.log(data);
   return (
     <div className="movies mobile-container">
       <div className="title">
@@ -44,18 +44,20 @@ const Carousel = ({
 
         <div className={`container-carousel-${idName}`}>
           <div className="carousel">
-            {data?.map((movie: { backdrop_path: string }, i) => (
+            {data?.map((movie: { backdrop_path: string; id: string }, i) => (
               <div
                 className="movie"
                 key={i}
                 style={{
                   backgroundImage: `url(https://image.tmdb.org/t/p/w342${movie.backdrop_path})`,
                 }}
-              >                
+              >
                 <div className="movie-options">
-                  <button>
-                    <BsPlayCircle />
-                  </button>
+                  <Link to={`/movie-detail/${movie.id}`}>
+                    <button>
+                      <BsPlayCircle />
+                    </button>
+                  </Link>
                   <button>
                     <BsBookmarkHeart />
                   </button>

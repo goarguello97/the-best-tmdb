@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MovieDetail from "./commons/MovieDetail/MovieDetail";
 // import Login from "./components/Login-Register/Login-Register";
 // import Lorem from "./components/Lorem/Lorem";
 import Navbar from "./components/Navbar/Navbar";
@@ -29,6 +30,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/movie-detail/:id/*" element={<MovieDetail />} />
         {/* <Login/> */}
         {/* <Modal/> */}
         {/* <Landing /> */}

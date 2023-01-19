@@ -7,8 +7,12 @@ export interface AuthState {
 }
 
 interface Auth {
-  payload: { name: string; lastname: string; email: string };
-  user: {};
+  payload: Payload;
+  user: {
+    email: string;
+    lastname: string;
+    name: string;
+  };
   token: string;
   status: number;
   message: String;
@@ -16,11 +20,22 @@ interface Auth {
 }
 
 interface Status {
+  payload: Payload;
   message: string;
   status: number;
-  user: {};
+  user: {
+    email: string;
+    lastname: string;
+    name: string;
+  };
   data: {
     message: string;
     status: number;
   };
+}
+
+interface Payload {
+  email: string;
+  lastname: string;
+  name: string;
 }
