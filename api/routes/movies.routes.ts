@@ -6,7 +6,7 @@ const { getPopular, getSpecific, getOne } = MoviesController;
 const { addFav, remFav } = UserController;
 
 router.get("/", getPopular);
-router.get("/movie/:id", getOne);
+router.get("/movie/:typeFilm/:id", getOne);
 router.get("/search", getSpecific);
 router.post("/add", addFav);
 router.post("/remove", remFav)

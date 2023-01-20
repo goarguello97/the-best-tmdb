@@ -4,10 +4,10 @@ import { Movie } from "../../interfaces/movie.interface";
 
 export const getOne = createAsyncThunk(
   "GET_ONE",
-  async (idMovie: string, thunkApi) => {
+  async (data: string, thunkApi) => {
     try {
       const result = await axios.get(
-        `http://localhost:3000/api/movies/movie/${idMovie}`
+        `http://localhost:3000/api/movies/movie/${data}`
       );
       return result.data;
     } catch (error: any) {
@@ -30,13 +30,14 @@ export const movieSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getOne.pending, (state, action) => {
       state.loading = true;
+      state.error = false;
     });
     builder.addCase(getOne.fulfilled, (state, action) => {
       state.loading = false;
       state.movie = action.payload;
     });
     builder.addCase(getOne.rejected, (state, action: PayloadAction<any>) => {
-      state.error = true
+      state.error = true;
     });
   },
 });

@@ -23,8 +23,8 @@ class MoviesController {
   }
 
   static async getOne(req: Request, res: Response) {
-    const { id } = req.params;
-    const { error, data } = await getOneService(id);
+    const { id, typeFilm } = req.params;
+    const { error, data } = await getOneService(id, typeFilm);
 
     if (error) {
       return res.status(500).json({ message: data.status_message });

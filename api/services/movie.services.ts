@@ -81,15 +81,20 @@ class MoviesService {
     }
   }
 
-  static async getOneService(id: string) {
+  static async getOneService(id: string, category: string) {
     try {
-      const resp = await axios.get(
-        `${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,images&language=es-ES`
-      );
-
-      return { error: false, data: resp.data };
+      if (category === "movie") {
+        const resp = await axios.get(
+          `${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,images&language=es-ES`
+        );
+        return { error: false, data: resp.data };
+      } else if (category === "tvSerie") {
+        const resp = await axios.get(
+          `${BASE_URL}/tv/${id}?api_key=${API_KEY}&append_to_response=videos,images&language=es-ES`
+        );
+        return { error: false, data: resp.data };
+      }
     } catch ({ response }) {
-
       const error = response.data;
       return { error: true, data: error };
     }

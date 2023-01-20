@@ -8,10 +8,12 @@ const Carousel = ({
   idName,
   category,
   data,
+  typeFilm,
 }: {
   idName: string;
   category: string | null;
   data: [];
+  typeFilm: string;
 }) => {
   const carousel = document.querySelector(
     `.container-carousel-${idName}`
@@ -25,7 +27,6 @@ const Carousel = ({
     carousel.scrollLeft -= carousel!.offsetWidth / 2;
   };
 
-  console.log(data);
   return (
     <div className="movies mobile-container">
       <div className="title">
@@ -53,7 +54,7 @@ const Carousel = ({
                 }}
               >
                 <div className="movie-options">
-                  <Link to={`/movie-detail/${movie.id}`}>
+                  <Link to={`/detail/${typeFilm}/${movie.id}`}>
                     <button>
                       <BsPlayCircle />
                     </button>

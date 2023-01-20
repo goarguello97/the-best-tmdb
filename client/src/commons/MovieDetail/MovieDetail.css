@@ -13,6 +13,7 @@
   padding: 10px;
   justify-content: center;
   background-color: white;
+  border-radius: 25px 25px 0px 0px;
 }
 
 .cover {
@@ -43,6 +44,7 @@
   background-color: white;
   padding-left: 10px;
   padding-right: 10px;
+  border-radius: 0px 0px 25px 25px;
 }
 
 .description h2 {
@@ -52,9 +54,9 @@
   font-size: 20px;
 }
 
-.description h2,
-p {
+.description p {
   margin-top: 20px;
+  padding-bottom: 20px;
 }
 
 .description button {
@@ -70,7 +72,7 @@ p {
   color: rgba(226, 109, 92, 0.7);
 }
 
-.swal-wide{
+.swal-wide {
   font-size: 1.5em;
 }
 
@@ -90,7 +92,17 @@ p {
   }
 
   .cover {
+    width: 100vw;
     margin-bottom: 20px;
+  }
+
+  .cover img {
+    width: 100%;
+  }
+  .trailer {
+    width: 100%;
+    min-height: 200px;
+    height: auto;
   }
 
   .description {
