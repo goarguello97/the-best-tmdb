@@ -30,6 +30,7 @@ export const addFav = createAsyncThunk(
         id: number;
         name: string;
       }[];
+      typeFilm: string;
     },
     thunkApi
   ) => {

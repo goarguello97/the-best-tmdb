@@ -23,6 +23,10 @@ Movie.init(
       type: DataTypes.ARRAY(DataTypes.JSON),
       allowNull: false,
     },
+    typeFilm: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,

@@ -15,6 +15,7 @@ export interface Favorite {
   movieId: number;
   movieTitle: string;
   movieDate: string;
+  typeFilm:string;
   movieGenre: MovieGenre[];
   createdAt: string;
   updatedAt: string;
