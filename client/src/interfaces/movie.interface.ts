@@ -16,6 +16,8 @@ interface MovieData {
   budget: number;
   genres: Genre[];
   homepage: string;
+  name:string;
+  first_air_date:string;
   id: number;
   imdb_id: string;
   original_language: string;

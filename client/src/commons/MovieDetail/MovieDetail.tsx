@@ -11,7 +11,7 @@ import "./MovieDetail.css";
 import { TabTitle } from "../../utils/generalFunctions";
 
 const MovieDetail = () => {
-  const { id } = useParams();
+  const { id, typeFilm } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { movie, error } = useAppSelector((state) => state.movie);
@@ -58,8 +58,8 @@ const MovieDetail = () => {
   const movieToFavorites = {
     email: userLogged.user?.email,
     movieId: movie.id,
-    movieTitle: movie.title,
-    movieDate: movie.release_date,
+    movieTitle: typeFilm === "movie" ? movie.title : movie.name,
+    movieDate: typeFilm === "movie" ? movie.release_date : movie.first_air_date,
     movieGenre: movie.genres,
   };
 
@@ -68,13 +68,11 @@ const MovieDetail = () => {
       dispatch(getUser(userLogged.user.id));
     }
 
-    if (error) {
-      navigate("/home");
-    }
-    dispatch(getOne(id!));
+    dispatch(getOne(`${typeFilm}/${id}`));
   }, [isUserLoggedIn, loading, error]);
-
-  TabTitle(`${movie.title} - The Best TMDB`);
+  TabTitle(
+    `${typeFilm === "movie" ? movie.title : movie.name} - The Best TMDB`
+  );
   return (
     <div className="container-movie">
       <div className="movie-detail">
