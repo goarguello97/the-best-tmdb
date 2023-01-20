@@ -49,7 +49,7 @@ export const moviesSlice = createSlice({
     builder.addCase(
       getPopular.rejected,
       (state, action: PayloadAction<any>) => {
-        state.error = action.payload;
+        state.error = true
       }
     );
   },

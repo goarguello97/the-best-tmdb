@@ -1,11 +1,11 @@
 export interface Movies {
   loading: boolean;
-  error: string | null;
+  error: boolean | null;
   movies: MoviesData;
 }
 export interface Movie {
   loading: boolean;
-  error: string | null;
+  error: boolean | null;
   movie: MovieData;
 }
 

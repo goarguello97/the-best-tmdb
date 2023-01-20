@@ -19,7 +19,7 @@ export const getOne = createAsyncThunk(
 
 const initialState = {
   loading: false,
-  error: null,
+  error: false,
   movie: {},
 } as Movie;
 
@@ -36,7 +36,7 @@ export const movieSlice = createSlice({
       state.movie = action.payload;
     });
     builder.addCase(getOne.rejected, (state, action: PayloadAction<any>) => {
-      state.error = action.payload;
+      state.error = true
     });
   },
 });

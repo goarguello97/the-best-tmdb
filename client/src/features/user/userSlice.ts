@@ -20,8 +20,21 @@ export const getUser = createAsyncThunk(
 
 export const addFav = createAsyncThunk(
   "ADD_FAV",
-  async (data: {}, thunkApi) => {
+  async (
+    data: {
+      email: string;
+      movieId: number;
+      movieTitle: string;
+      movieDate: string;
+      movieGenre: {
+        id: number;
+        name: string;
+      }[];
+    },
+    thunkApi
+  ) => {
     try {
+      if (!data.email) throw new Error("Necesitas estar logueado.");
       const addFav = await axios.post(
         "http://localhost:3000/api/movies/add",
         data
@@ -54,6 +67,7 @@ const initialState = {
   loading: false,
   error: null,
   user: {},
+  message: null,
 } as UserState;
 
 export const userSlice = createSlice({
@@ -74,7 +88,7 @@ export const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(addFav.fulfilled, (state, action: PayloadAction<any>) => {
-      state.user.Favorites = action.payload;
+      state.loading = false;
     });
     builder.addCase(addFav.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
@@ -83,7 +97,7 @@ export const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(remFav.fulfilled, (state, action: PayloadAction<any>) => {
-      state.user.Favorites = action.payload;
+      state.loading = false;
     });
     builder.addCase(remFav.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
