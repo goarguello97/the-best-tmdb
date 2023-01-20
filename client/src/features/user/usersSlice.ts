@@ -20,6 +20,7 @@ const initialState = {
   loading: false,
   error: null,
   users: [],
+  message: null,
 } as UsersState;
 
 export const usersSlice = createSlice({

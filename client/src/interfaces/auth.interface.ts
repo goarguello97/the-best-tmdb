@@ -1,7 +1,7 @@
 export interface AuthState {
   error: string | null;
   auth: Auth | Status;
-  user: Auth | Status;
+  userLogged: Auth | Status;
   isUserLoggedIn: null | boolean;
   isLoading: boolean;
 }
@@ -12,6 +12,7 @@ interface Auth {
     email: string;
     lastname: string;
     name: string;
+    id: string;
   };
   token: string;
   status: number;
@@ -27,6 +28,7 @@ interface Status {
     email: string;
     lastname: string;
     name: string;
+    id: string;
   };
   data: {
     message: string;
@@ -38,4 +40,5 @@ interface Payload {
   email: string;
   lastname: string;
   name: string;
+  id: string;
 }

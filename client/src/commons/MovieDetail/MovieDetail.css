@@ -64,11 +64,14 @@ p {
   color: rgba(0, 0, 0, 0.7);
   border: none;
   font-size: 50px;
-  font-weight: 600;
 }
 
 .description button:hover {
   color: rgba(226, 109, 92, 0.7);
+}
+
+.swal-wide{
+  font-size: 1.5em;
 }
 
 @media screen and (max-width: 1435px) {

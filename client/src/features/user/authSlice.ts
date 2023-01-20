@@ -56,8 +56,8 @@ export const setAuth = createAsyncThunk("SET_AUTH", (data: {}, thunkApi) => {
 
 const initialState = {
   error: null,
-  user: {},
-  isUserLoggedIn: null,
+  userLogged: {},
+  isUserLoggedIn: false,
   isLoading: true,
 } as AuthState;
 
@@ -70,7 +70,7 @@ export const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(login.fulfilled, (state, action) => {
-      state.user = action.payload;
+      state.userLogged = action.payload;
       state.isUserLoggedIn = true;
       state.isLoading = false;
     });
@@ -81,7 +81,7 @@ export const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(register.fulfilled, (state, action: PayloadAction<any>) => {
-      state.user = action.payload;
+      state.userLogged = action.payload;
     });
     builder.addCase(register.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
@@ -90,7 +90,7 @@ export const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(persist.fulfilled, (state, action: PayloadAction<any>) => {
-      state.user = action.payload;
+      state.userLogged = action.payload;
       state.isUserLoggedIn = true;
       state.isLoading = false;
     });
@@ -101,7 +101,7 @@ export const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(setAuth.fulfilled, (state, action: PayloadAction<any>) => {
-      state.user = action.payload;
+      state.userLogged = action.payload;
     });
     builder.addCase(setAuth.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;

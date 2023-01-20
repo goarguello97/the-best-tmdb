@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { user, isUserLoggedIn } = useAppSelector((state) => state.auth);
+  const { userLogged, isUserLoggedIn } = useAppSelector((state) => state.auth);
   const { values, handleChange, handleSubmit, errors } = useForm(
     LOGIN_INITIAL_VALUES,
     login,

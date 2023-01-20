@@ -7,7 +7,7 @@ import Loader from "../commons/Loader/Loader";
 
 const PrivateRoute = ({ children }: any) => {
   const dispatch = useAppDispatch();
-  const { isUserLoggedIn, isLoading, user } = useAppSelector(
+  const { isUserLoggedIn, isLoading, userLogged } = useAppSelector(
     (state) => state.auth
   );
 

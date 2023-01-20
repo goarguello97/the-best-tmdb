@@ -1,39 +1,80 @@
 import { useEffect } from "react";
-import { BsBookmarkHeart } from "react-icons/bs";
 import { CiBookmarkRemove } from "react-icons/ci";
+import { BsBookmarkHeart } from "react-icons/bs";
 import ReactPlayer from "react-player";
+import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOne } from "../../features/movie/movieSlice";
-import { persist } from "../../features/user/authSlice";
-import { addFav, remFav } from "../../features/user/userSlice";
+import { addFav, getUser, remFav } from "../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
 import "./MovieDetail.css";
+import { TabTitle } from "../../utils/generalFunctions";
 
 const MovieDetail = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { movie, loading, error } = useAppSelector((state) => state.movie);
-  const { auth, user } = useAppSelector((state) => state.auth);
+  const { movie, error } = useAppSelector((state) => state.movie);
+  const { userLogged, isUserLoggedIn } = useAppSelector((state) => state.auth);
+  const { user, loading } = useAppSelector((state) => state.user);
 
-  useEffect(() => {
-    dispatch(persist());
-    if (loading) {
-      if (error) {
-        navigate("/home");
+  const handleAddFavorites = () => {
+    dispatch(addFav(movieToFavorites)).then((data) => {
+      Swal.fire({
+        customClass: "swal-wide",
+        title: "¡Genial!",
+        text: `${data.payload.message}`,
+        icon: "success",
+        confirmButtonText: "X",
+      });
+    });
+  };
+
+  const handleRemFavorites = () => {
+    Swal.fire({
+      title: "¡Estás segur@?",
+      icon: "warning",
+      customClass: "swal-wide",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(remFav(movieToFavorites)).then((data) => {
+          Swal.fire({
+            customClass: "swal-wide",
+            title: "¡Eliminada!",
+            text: `${data.payload.message}`,
+            icon: "success",
+            confirmButtonText: "X",
+          });
+        });
       }
-    }
-    dispatch(getOne(id!));
-  }, [error]);
+    });
+  };
+
   const movieToFavorites = {
-    email: user.user?.email,
+    email: userLogged.user?.email,
     movieId: movie.id,
     movieTitle: movie.title,
     movieDate: movie.release_date,
     movieGenre: movie.genres,
   };
-  console.log(user, auth, movieToFavorites);
 
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      dispatch(getUser(userLogged.user.id));
+    }
+
+    if (error) {
+      navigate("/home");
+    }
+    dispatch(getOne(id!));
+  }, [isUserLoggedIn, loading, error]);
+
+  TabTitle(`${movie.title} - The Best TMDB`);
   return (
     <div className="container-movie">
       <div className="movie-detail">
@@ -43,7 +84,7 @@ const MovieDetail = () => {
         {movie.videos?.results[0]?.key ? (
           <div className="trailer">
             <ReactPlayer
-              url={`https://www.youtube.com/watch?v=${movie.videos?.results[0]?.key}`}
+              url={`http://www.youtube.com/watch?v=${movie.videos?.results[0]?.key}`}
               width="100%"
               height="100%"
             />
@@ -54,12 +95,27 @@ const MovieDetail = () => {
         <h2>{movie.title}</h2>
         <hr />
         <p>{movie.overview}</p>
-        <button onClick={() => dispatch(addFav(movieToFavorites))}>
-          <BsBookmarkHeart />
-        </button>
-        <button onClick={() => dispatch(remFav(movieToFavorites))}>
-          <CiBookmarkRemove />
-        </button>
+        {isUserLoggedIn ? (
+          user.favorites?.find((e) => e.movieId == movie.id) ? (
+            <button
+              onClick={() => {
+                handleRemFavorites();
+                dispatch(getUser(userLogged.user.id));
+              }}
+            >
+              <CiBookmarkRemove />
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                handleAddFavorites();
+                dispatch(getUser(userLogged.user.id));
+              }}
+            >
+              <BsBookmarkHeart />
+            </button>
+          )
+        ) : null}
       </div>
     </div>
   );

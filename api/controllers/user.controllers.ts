@@ -81,6 +81,7 @@ class UserController {
           email: user.email,
           name: user.name,
           lastname: user.lastname,
+          id: user.id,
         };
 
         const token = generateToken(payload);
@@ -143,10 +144,12 @@ class UserController {
         include: { model: Movie, as: "favorites" },
       }).then((user) => {
         if (user.favorites.find((e) => e.movieId == movieId)) {
-          res.json({ message: "Ya se encuentra en favoritos." });
+          res.status(200).json({ message: "Ya se encuentra en favoritos." });
         } else {
           user.addFavorites(movie);
-          res.json({ message: "Agregada a favoritos satisfactoriamente." });
+          res
+            .status(200)
+            .json({ message: "Agregada a favoritos satisfactoriamente." });
         }
       });
     });
@@ -170,16 +173,20 @@ class UserController {
       }).then((user) => {
         if (user.favorites.find((e) => e.movieId == movieId)) {
           user.removeFavorites(movie);
-          res.json({ message: "Removida de favoritos satisfactoriamente." });
+          res
+            .status(200)
+            .json({ message: "Removida de favoritos satisfactoriamente." });
         } else {
-          res.json({ message: "No esta en tu lista de favoritos." });
+          res
+            .status(200)
+            .json({ message: "No esta en tu lista de favoritos." });
         }
       });
     });
   }
 
   static async secret(req: AuthRequest, res: Response, next: NextFunction) {
-   res.json(req.user)
+    res.json(req.user);
   }
 
   static async logoutUser(req: Request, res: Response, next: NextFunction) {
