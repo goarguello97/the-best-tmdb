@@ -61,6 +61,7 @@ const MovieDetail = () => {
     movieTitle: typeFilm === "movie" ? movie.title : movie.name,
     movieDate: typeFilm === "movie" ? movie.release_date : movie.first_air_date,
     movieGenre: movie.genres,
+    typeFilm: typeFilm!,
   };
 
   useEffect(() => {

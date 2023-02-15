@@ -128,7 +128,8 @@ class UserController {
   }
 
   static async addFav(req: Request, res: Response, next: NextFunction) {
-    const { movieId, movieTitle, movieDate, movieGenre, email } = req.body;
+    const { movieId, movieTitle, movieDate, movieGenre, email, typeFilm } =
+      req.body;
     Movie.findOrCreate({
       where: { movieId },
       defaults: {
@@ -136,6 +137,7 @@ class UserController {
         movieTitle,
         movieDate,
         movieGenre,
+        typeFilm,
       },
     }).then((response) => {
       const movie = response[0];
@@ -156,7 +158,8 @@ class UserController {
   }
 
   static async remFav(req: Request, res: Response, next: NextFunction) {
-    const { movieId, movieTitle, movieDate, movieGenre, email } = req.body;
+    const { movieId, movieTitle, movieDate, movieGenre, email, typeFilm } =
+      req.body;
     Movie.findOrCreate({
       where: { movieId },
       defaults: {
@@ -164,6 +167,7 @@ class UserController {
         movieTitle,
         movieDate,
         movieGenre,
+        typeFilm,
       },
     }).then((response) => {
       const movie = response[0];
