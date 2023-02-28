@@ -18,7 +18,7 @@ export const getOne = createAsyncThunk(
 );
 
 const initialState = {
-  loading: false,
+  loadingMovie: false,
   error: false,
   movie: {},
 } as Movie;
@@ -29,11 +29,11 @@ export const movieSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getOne.pending, (state, action) => {
-      state.loading = true;
+      state.loadingMovie = true;
       state.error = false;
     });
     builder.addCase(getOne.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loadingMovie = false;
       state.movie = action.payload;
     });
     builder.addCase(getOne.rejected, (state, action: PayloadAction<any>) => {

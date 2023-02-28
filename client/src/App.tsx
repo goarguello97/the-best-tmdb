@@ -11,11 +11,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PrivateRoute from "./routes/PrivateRoute";
 import { TabTitle } from "./utils/generalFunctions";
-// import Modal from "./components/Modal/Modal"
 
 function App() {
   const dispatch = useAppDispatch();
-  const { userLogged } = useAppSelector((state) => state.auth);
   useEffect(() => {
     dispatch(persist());
   }, []);
@@ -32,9 +30,6 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/detail/:typeFilm/:id/*" element={<MovieDetail />} />
         <Route path="/profile" element={<ProfileDetail />} />
-        {/* <Login/> */}
-        {/* <Modal/> */}
-        {/* <Landing /> */}
       </Routes>
     </Router>
   );

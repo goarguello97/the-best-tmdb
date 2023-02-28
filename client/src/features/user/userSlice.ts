@@ -64,8 +64,26 @@ export const remFav = createAsyncThunk(
   }
 );
 
+export const updateUser = createAsyncThunk(
+  "UPDATE_USER",
+  async (data: {}, thunkApi) => {
+    try {
+      const updatedUser = await axios.put(
+        "http://localhost:3000/api/users/",
+        data
+      );
+      return updatedUser.data;
+    } catch (error: any) {
+      const { message } = error;
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
 const initialState = {
   loading: false,
+  flag: false,
+  dataOk: false,
   error: null,
   user: {},
   message: null,
@@ -80,7 +98,11 @@ export const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.flag = true;
+      state.dataOk = true;
       state.user = action.payload;
+      state.message = null;
     });
     builder.addCase(getUser.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
@@ -90,6 +112,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(addFav.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
+      state.flag = true;
     });
     builder.addCase(addFav.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
@@ -99,10 +122,26 @@ export const userSlice = createSlice({
     });
     builder.addCase(remFav.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
+      state.flag = true;
     });
     builder.addCase(remFav.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
     });
+    builder.addCase(updateUser.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.message = action.payload.message;
+      state.user = action.payload.userUpdated;
+    });
+    builder.addCase(
+      updateUser.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload;
+      }
+    );
   },
 });
 

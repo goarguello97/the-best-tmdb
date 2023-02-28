@@ -67,7 +67,7 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className={colorScroll}>
+                <a href="/profile" className={colorScroll}>
                   Perfil
                 </a>
               </li>

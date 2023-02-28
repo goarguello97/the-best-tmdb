@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "./useTypedSelector";
 
-const useForm = (initialValues: any, submit: any, validations: any) => {
+const useForm = (
+  initialValues: any,
+  submit: any,
+  validations: any,
+  flag: boolean | null
+) => {
   const dispatch = useAppDispatch();
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
@@ -17,7 +22,10 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
         setErrors({});
       }, 3000);
     }
-  }, [errors]);
+    if (flag && !values.id) {
+      setValues(initialValues);
+    }
+  }, [errors, flag]);
 
   const handleChange = (e: any) => {
     setValues({
@@ -36,7 +44,7 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
     setSubmitting(true);
   };
 
-  return { handleChange, handleSubmit, values, setValues,errors  };
+  return { handleChange, handleSubmit, values, setValues, errors };
 };
 
 export default useForm;

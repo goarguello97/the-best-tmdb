@@ -29,7 +29,7 @@ export const remFav = createAsyncThunk(
 );
 
 const initialState = {
-  loading: false,
+  loadingMovie: false,
   error: null,
   movies: {},
 } as Movies;
@@ -40,10 +40,10 @@ export const moviesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getPopular.pending, (state, action) => {
-      state.loading = true;
+      state.loadingMovie = true;
     });
     builder.addCase(getPopular.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loadingMovie = false;
       state.movies = action.payload;
     });
     builder.addCase(

@@ -4,6 +4,7 @@ import { useAppSelector } from "../../hooks/useTypedSelector";
 
 const GridMovies = () => {
   const { movies } = useAppSelector((state) => state.movies);
+
   return (
     <div className="grid-movies">
       <Carousel
