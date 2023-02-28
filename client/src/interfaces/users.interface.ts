@@ -9,6 +9,8 @@ export interface UsersState {
 
 export interface UserState {
   loading: boolean;
+  flag: boolean;
+  dataOk: boolean;
   error: string | null;
   user: User;
   message: { message: string } | null;

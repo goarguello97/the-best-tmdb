@@ -3,7 +3,7 @@ import { CiBookmarkRemove } from "react-icons/ci";
 import { BsBookmarkHeart } from "react-icons/bs";
 import ReactPlayer from "react-player";
 import Swal from "sweetalert2";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getOne } from "../../features/movie/movieSlice";
 import { addFav, getUser, remFav } from "../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
@@ -13,10 +13,9 @@ import { TabTitle } from "../../utils/generalFunctions";
 const MovieDetail = () => {
   const { id, typeFilm } = useParams();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { movie, error } = useAppSelector((state) => state.movie);
+  const { movie } = useAppSelector((state) => state.movie);
   const { userLogged, isUserLoggedIn } = useAppSelector((state) => state.auth);
-  const { user, loading } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
 
   const handleAddFavorites = () => {
     dispatch(addFav(movieToFavorites)).then((data) => {
@@ -27,6 +26,7 @@ const MovieDetail = () => {
         icon: "success",
         confirmButtonText: "X",
       });
+      dispatch(getUser(userLogged.user.id));
     });
   };
 
@@ -50,6 +50,7 @@ const MovieDetail = () => {
             icon: "success",
             confirmButtonText: "X",
           });
+          dispatch(getUser(userLogged.user.id));
         });
       }
     });
@@ -65,15 +66,17 @@ const MovieDetail = () => {
   };
 
   useEffect(() => {
-    if (isUserLoggedIn) {
-      dispatch(getUser(userLogged.user.id));
+    if (!movie.title) {
+      dispatch(getOne(`${typeFilm}/${id}`));
     }
+  }, [user]);
 
-    dispatch(getOne(`${typeFilm}/${id}`));
-  }, [isUserLoggedIn, loading, error]);
   TabTitle(
     `${typeFilm === "movie" ? movie.title : movie.name} - The Best TMDB`
   );
+
+  console.log(movie)
+
   return (
     <div className="container-movie">
       <div className="movie-detail">

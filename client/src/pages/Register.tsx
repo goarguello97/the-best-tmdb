@@ -14,7 +14,8 @@ const Login = () => {
   const { values, handleChange, handleSubmit, errors } = useForm(
     REGISTER_INITIAL_VALUES,
     register,
-    validationRegister
+    validationRegister,
+    null
   );
 
   useEffect(() => {
@@ -23,7 +24,6 @@ const Login = () => {
     }
   }, [auth]);
 
-  console.log(auth);
   return (
     <div className="login-background">
       <div className="login-container">
