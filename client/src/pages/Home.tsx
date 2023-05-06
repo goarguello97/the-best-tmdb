@@ -7,13 +7,16 @@ import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 
 const Home = () => {
   const { movies } = useAppSelector((state) => state.movies);
+  const { search, loadingSearch, searchOK } = useAppSelector((state) => state.movies);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(getPopular());
-  }, []);
+  }, [loadingSearch, searchOK]);
+
   return movies.movies ? (
     <div className="home">
-      <PrincipalCover />
+      {searchOK ? null : <PrincipalCover />}
       <GridMovies />
     </div>
   ) : (

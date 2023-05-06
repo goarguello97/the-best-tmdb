@@ -1,7 +1,10 @@
 export interface Movies {
   loadingMovie: boolean;
+  loadingSearch: boolean;
+  searchOK:boolean;
   error: boolean | null;
   movies: MoviesData;
+  search: { movies: { results: [] }, tvSeries: { results: [] } };
 }
 export interface Movie {
   loadingMovie: boolean;
@@ -16,8 +19,8 @@ interface MovieData {
   budget: number;
   genres: Genre[];
   homepage: string;
-  name:string;
-  first_air_date:string;
+  name: string;
+  first_air_date: string;
   id: number;
   imdb_id: string;
   original_language: string;

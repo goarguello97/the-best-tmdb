@@ -11,7 +11,7 @@ const store = configureStore({
     users: usersReducer,
     user: userReducer,
     auth: authSlice,
-    movie:movieSlice,
+    movie: movieSlice,
     movies: moviesSlice,
     flag: flagsSlice,
   },

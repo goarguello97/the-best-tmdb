@@ -112,7 +112,7 @@ class UserController {
         );
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         res.status(400).json(err);
       });
   }
@@ -195,7 +195,7 @@ class UserController {
   }
 
   static async logoutUser(req: Request, res: Response, next: NextFunction) {
-    res.clearCookie("token");
+    res.clearCookie("token", { domain: "localhost", path: "/" });
     res.sendStatus(205);
   }
 }

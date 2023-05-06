@@ -12,26 +12,30 @@ export const getPopular = createAsyncThunk("GET_POP", async (_, thunkApi) => {
   }
 });
 
-export const remFav = createAsyncThunk(
-  "REMOVE_FAV",
-  async (data: {}, thunkApi) => {
-    try {
-      const addFav = await axios.post(
-        "http://localhost:3000/api/movies/remove",
-        data
-      );
-      return addFav.data;
-    } catch (error: any) {
-      const { message } = error;
-      return thunkApi.rejectWithValue(message);
-    }
+export const searchFilm = createAsyncThunk("SEARCH", async (data, thunkApi) => {
+  try {
+    const results = await axios.post(
+      "http://localhost:3000/api/movies/search",
+      data
+    );
+    return results.data;
+  } catch (error: any) {
+    const { message } = error;
+    return thunkApi.rejectWithValue(message);
   }
-);
+});
+
+export const reset = createAsyncThunk("RESET", async (_, thunkApi) => {
+  return false
+});
 
 const initialState = {
   loadingMovie: false,
+  loadingSearch: false,
+  searchOK: false,
   error: null,
   movies: {},
+  search: {},
 } as Movies;
 
 export const moviesSlice = createSlice({
@@ -49,9 +53,30 @@ export const moviesSlice = createSlice({
     builder.addCase(
       getPopular.rejected,
       (state, action: PayloadAction<any>) => {
-        state.error = true
+        state.error = true;
       }
     );
+    builder.addCase(searchFilm.pending, (state, action) => {
+      state.loadingSearch = true;
+    });
+    builder.addCase(searchFilm.fulfilled, (state, action) => {
+      state.loadingSearch = false;
+      state.searchOK = true;
+      state.search = action.payload;
+    });
+    builder.addCase(
+      searchFilm.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.error = action.payload;
+      }
+    );
+    builder.addCase(reset.pending, (state, action) => {
+      state.loadingSearch = true;
+    });
+    builder.addCase(reset.fulfilled, (state, action) => {
+      state.loadingSearch = false;
+      state.searchOK = action.payload;
+    });
   },
 });
 

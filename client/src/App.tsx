@@ -25,7 +25,14 @@ function App() {
       <Routes>
         <Route path="*" element={<Landing />} />
         <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/detail/:typeFilm/:id/*" element={<MovieDetail />} />
