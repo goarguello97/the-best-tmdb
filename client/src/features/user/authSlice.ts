@@ -54,6 +54,17 @@ export const setAuth = createAsyncThunk("SET_AUTH", (data: {}, thunkApi) => {
   }
 });
 
+export const logOut = createAsyncThunk("LOG_OUT", async (_, thunkApi) => {
+  try {
+    const logout = await axios.post(
+      "http://localhost:3000/api/users/logout",{},{withCredentials:true}
+    );
+    return logout;
+  } catch (error) {
+    return thunkApi.rejectWithValue(error);
+  }
+});
+
 const initialState = {
   error: null,
   userLogged: {},
@@ -104,6 +115,15 @@ export const authSlice = createSlice({
       state.userLogged = action.payload;
     });
     builder.addCase(setAuth.rejected, (state, action: PayloadAction<any>) => {
+      state.error = action.payload;
+    });
+    builder.addCase(logOut.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(logOut.fulfilled, (state, action) => {
+      state.isUserLoggedIn = false;
+    });
+    builder.addCase(logOut.rejected, (state, action: PayloadAction<any>) => {
       state.error = action.payload;
     });
   },

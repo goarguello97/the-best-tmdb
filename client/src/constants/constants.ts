@@ -3,7 +3,7 @@ export const REGISTER_INITIAL_VALUES = {
   lastname: "",
   email: "",
   password: "",
-  password2:""
+  password2: "",
 };
 
 export const LOGIN_INITIAL_VALUES = {
@@ -11,3 +11,6 @@ export const LOGIN_INITIAL_VALUES = {
   password: "",
 };
 
+export const SEARCH_INITIAL_VALUES = {
+  search: "",
+};

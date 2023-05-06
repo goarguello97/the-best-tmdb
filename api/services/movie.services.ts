@@ -36,46 +36,58 @@ class MoviesService {
         `${BASE_URL}/tv/popular?api_key=${API_KEY}&language=es-ES&page=1`
       );
 
-      //Peliculas terror
-      const moviesHorror = axios.get(
-        `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=27&language=es-ES`
-      );
-
-      //Peliculas comedia
-      const moviesComedy = axios.get(
-        `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=35&language=es-ES`
-      );
-
-      //Peliculas drama
-      const moviesDrama = axios.get(
-        `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=18&language=es-ES`
-      );
-
-      const [
-        moviesResult,
-        tvSeriesResult,
-        moviesHorrorResult,
-        moviesComedyResult,
-        moviesDramaResult,
-      ] = await Promise.all([
+      const [moviesResult, tvSeriesResult] = await Promise.all([
         movies,
         tvSeries,
-        moviesHorror,
-        moviesComedy,
-        moviesDrama,
       ]);
       return {
         error: false,
         data: {
           movies: moviesResult.data.results,
           tvSeries: tvSeriesResult.data.results,
-          categories: {
-            Horror: moviesHorrorResult.data.results,
-            Drama: moviesDramaResult.data.results,
-            Comedy: moviesComedyResult.data.results,
-          },
         },
       };
+    } catch (error) {
+      return { error: true, data: error };
+    }
+  }
+
+  static async getComedyService() {
+    try {
+      //Peliculas comedia
+      const moviesComedy = await axios.get(
+        `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=35&language=es-ES`
+      );
+
+      return {
+        error: false,
+        data: moviesComedy.data.results,
+      };
+    } catch (error) {
+      return { error: true, data: error };
+    }
+  }
+
+  static async getHorrorService() {
+    try {
+      //Peliculas terror
+      const moviesHorror = await axios.get(
+        `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=27&language=es-ES`
+      );
+
+      return { error: false, data: moviesHorror.data.results };
+    } catch (error) {
+      return { error: true, data: error };
+    }
+  }
+
+  static async getDramaService() {
+    try {
+      //Peliculas drama
+      const moviesDrama = axios.get(
+        `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=18&language=es-ES`
+      );
+      return { error: false, data: (await moviesDrama).data.results };
     } catch (error) {
       return { error: true, data: error };
     }
@@ -88,7 +100,7 @@ class MoviesService {
           `${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,images&language=es-ES`
         );
         return { error: false, data: resp.data };
-      } else if (category === "tvSerie") {
+      } else if (category === "tv") {
         const resp = await axios.get(
           `${BASE_URL}/tv/${id}?api_key=${API_KEY}&append_to_response=videos,images&language=es-ES`
         );

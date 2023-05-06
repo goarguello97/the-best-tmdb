@@ -1,37 +1,73 @@
 @import url("https://fonts.googleapis.com/css?family=Quicksand:400,500,700");
 
-
-/*-- Inspiration taken from abdo steif -->
-/* --> https://codepen.io/abdosteif/pen/bRoyMb?editors=1100*/
-
-/* Navbar section */
-
 .nav {
   width: 100%;
   height: 65px;
-  position: fixed;
+  position: absolute;
   line-height: 65px;
   text-align: center;
-  /* background-color: rgba(17, 17, 17, 0.5); */
   background-color: transparent;
-  box-shadow: inset 0px 74px 56px -37px rgba(0,0,0,0.1);
+  box-shadow: inset 0px 74px 56px -37px rgba(0, 0, 0, 0.1);
   z-index: 3;
 }
 
-.container{
-  padding-left: 0;
-  padding-right: 0;
-  position: relative;
+.navbar-brand {
+  margin-left: 10px;
+}
+
+.navbar-toggler {
+  background-color: rgba(255, 255, 255, 0.3);
+  margin-right: 10px;
+}
+
+.navbar-nav {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-nav a {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 10px;
+  margin-right: 10px;
+  border-radius: 25px;
+  font-weight: 500;
+  color: white;
 }
 
 .sign-in {
   background-color: rgba(226, 109, 92, 0.7);
-  padding: 5px 10px;
-  border-radius: 25px;
-  font-weight: 500;
 }
+
 .sign-in:hover {
   background-color: rgba(226, 109, 92, 1);
+}
+
+.log-out {
+  text-decoration: none;
+  background-color: rgba(226, 109, 92, 0.7);
+  font-size: 20px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 10px;
+  margin-right: 10px;
+  border-radius: 25px;
+  border: none;
+  font-weight: 500;
+  color: white;
+}
+
+.log-out:hover {
+  background-color: rgba(226, 109, 92, 1);
+}
+
+.log-out:active {
+  background-color: rgba(226, 109, 92, 1) !important;
 }
 
 .nav div.logo {
@@ -61,51 +97,25 @@
   margin-top: auto;
 }
 
-.nav div.main_list {
-  height: 65px;
-  float: right;
+.form-search {
+  position: relative;
 }
 
-.nav div.main_list ul {
-  width: 100%;
-  height: 65px;
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.button-x {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  right: 8%;
+  height: 100%;
+  width: 27px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: white;
 }
 
-.nav div.main_list ul li {
-  width: auto;
-  height: 65px;
-  padding: 0;
-  padding-right: 3rem;
+.button-x:hover,
+.button-x:active {
+  background-color: rgba(0, 0, 0, 1) !important;
 }
-
-.nav div.main_list ul li a {
-  text-decoration: none;
-  color: #f9f9f9;
-  line-height: 65px;
-  font-size: 2.4rem;
-  transition: all 0.375s;
-}
-
-.nav div.main_list ul li a:hover {
-  color: #f9f9f9;
-}
-
-/* Home section */
-
-.navTrigger {
-  display: none;
-}
-
-.nav {
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
-}
-
-/* Media qurey section */
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .container {
@@ -113,265 +123,21 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .navTrigger {
-    display: block;
+@media screen and (max-width: 991px) {
+  .container {
+    width: 100% !important;
+    max-width: none;
   }
-  .nav div.logo {
-    margin-left: 15px;
-  }
-  .nav div.main_list {
-    width: 100%;
-    height: 0;
-    overflow: hidden;
-  }
-  .nav div.show_list {
-    height: auto;
-  }
-  .nav div.main_list ul {
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background-color: #000;
-    /*same background color of navbar*/
-    background-position: center top;
-  }
-  .nav div.main_list ul li {
-    width: 100%;
-    text-align: right;
-  }
-  .nav div.main_list ul li a {
-    text-align: center;
-    width: 100%;
-    font-size: 3rem;
-    padding: 20px;
-    color: white;
-  }
-  .nav div.media_button {
-    display: block;
-  }
-}
 
-/* Animation */
-/* Inspiration taken from Dicson https://codemyui.com/simple-hamburger-menu-x-mark-animation/ */
+  .navbar-nav {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    border-radius: 20px;
+    align-items: end;
+    max-width: 280px;
+  }
 
-.navTrigger {
-  cursor: pointer;
-  width: 30px;
-  height: 25px;
-  margin: auto;
-  position: absolute;
-  right: 30px;
-  top: 5px;
-  bottom: 0;
-}
-
-.navTrigger i {
-  background-color: #000;
-  border-radius: 2px;
-  content: "";
-  display: block;
-  width: 100%;
-  height: 4px;
-}
-
-.navTrigger i:nth-child(1) {
-  -webkit-animation: outT 0.8s backwards;
-  animation: outT 0.8s backwards;
-  -webkit-animation-direction: reverse;
-  animation-direction: reverse;
-}
-
-.navTrigger i:nth-child(2) {
-  margin: 5px 0;
-  -webkit-animation: outM 0.8s backwards;
-  animation: outM 0.8s backwards;
-  -webkit-animation-direction: reverse;
-  animation-direction: reverse;
-}
-
-.navTrigger i:nth-child(3) {
-  -webkit-animation: outBtm 0.8s backwards;
-  animation: outBtm 0.8s backwards;
-  -webkit-animation-direction: reverse;
-  animation-direction: reverse;
-}
-
-.navTrigger.active i:nth-child(1) {
-  -webkit-animation: inT 0.8s forwards;
-  animation: inT 0.8s forwards;
-}
-
-.navTrigger.active i:nth-child(2) {
-  -webkit-animation: inM 0.8s forwards;
-  animation: inM 0.8s forwards;
-}
-
-.navTrigger.active i:nth-child(3) {
-  -webkit-animation: inBtm 0.8s forwards;
-  animation: inBtm 0.8s forwards;
-}
-
-@-webkit-keyframes inM {
-  50% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(45deg);
-  }
-}
-
-@keyframes inM {
-  50% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(45deg);
-  }
-}
-
-@-webkit-keyframes outM {
-  50% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(45deg);
-  }
-}
-
-@keyframes outM {
-  50% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(45deg);
-  }
-}
-
-@-webkit-keyframes inT {
-  0% {
-    -webkit-transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    -webkit-transform: translateY(9px) rotate(0deg);
-  }
-  100% {
-    -webkit-transform: translateY(9px) rotate(135deg);
-  }
-}
-
-@keyframes inT {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(9px) rotate(0deg);
-  }
-  100% {
-    transform: translateY(9px) rotate(135deg);
-  }
-}
-
-@-webkit-keyframes outT {
-  0% {
-    -webkit-transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    -webkit-transform: translateY(9px) rotate(0deg);
-  }
-  100% {
-    -webkit-transform: translateY(9px) rotate(135deg);
-  }
-}
-
-@keyframes outT {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(9px) rotate(0deg);
-  }
-  100% {
-    transform: translateY(9px) rotate(135deg);
-  }
-}
-
-@-webkit-keyframes inBtm {
-  0% {
-    -webkit-transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    -webkit-transform: translateY(-9px) rotate(0deg);
-  }
-  100% {
-    -webkit-transform: translateY(-9px) rotate(135deg);
-  }
-}
-
-@keyframes inBtm {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-9px) rotate(0deg);
-  }
-  100% {
-    transform: translateY(-9px) rotate(135deg);
-  }
-}
-
-@-webkit-keyframes outBtm {
-  0% {
-    -webkit-transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    -webkit-transform: translateY(-9px) rotate(0deg);
-  }
-  100% {
-    -webkit-transform: translateY(-9px) rotate(135deg);
-  }
-}
-
-@keyframes outBtm {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-9px) rotate(0deg);
-  }
-  100% {
-    transform: translateY(-9px) rotate(135deg);
-  }
-}
-
-.affix {
-  padding: 0;
-  background-color: #111;
-}
-
-.affix-letters {
-  color: #adadad !important;
-}
-
-.affix-burger {
-  background-color: #adadad !important;
-}
-
-.myH2 {
-  text-align: center;
-  font-size: 4rem;
-}
-.myP {
-  text-align: justify;
-  padding-left: 15%;
-  padding-right: 15%;
-  font-size: 20px;
-}
-@media all and (max-width: 700px) {
-  .myP {
-    padding: 2%;
+  .navbar-nav a {
+    color: black;
   }
 }

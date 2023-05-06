@@ -128,3 +128,11 @@ export const validationUpdate = (values: User) => {
 
   return errors;
 };
+
+export const searchValidation = (values: any) => {
+  let errors = {} as ErrorInterface;
+  if (!values.search) {
+    errors.search = "Es necesario ingresar una búsqueda.";
+  }
+  return errors;
+};

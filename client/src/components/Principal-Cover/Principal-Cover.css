@@ -3,12 +3,12 @@
   height: auto;
   min-height: 300px;
   /* background-color: aquamarine; */
-  background: linear-gradient(
+  /* background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(51, 92, 103, 1) 84%,
     rgba(144, 206, 161, 1) 100%
-  );
+  ); */
   display: flex;
   flex-direction: column;
   justify-content: center;
