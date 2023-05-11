@@ -55,9 +55,4 @@ User.beforeCreate((user: any) => {
   return (user.password = hash);
 });
 
-User.beforeUpdate((user: any) => {
-  const hash = user.hash(user.password, salt);
-  return (user.password = hash);
-});
-
 export default User;

@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import MoviesController from "../controllers/movie.controllers";
 import UserController from "../controllers/user.controllers";
-const { getPopular, getSpecific, getComedy, getHorror,getDrama, getOne } =
+const { getPopular, getSpecific, getComedy, getHorror, getDrama, getOne } =
   MoviesController;
 const { addFav, remFav } = UserController;
 

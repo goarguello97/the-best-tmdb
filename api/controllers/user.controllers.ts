@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import bcrypt from "bcrypt";
 import { AuthRequest } from "../interfaces/user.interface";
 import { generateToken } from "../config/token";
 import { User, Movie } from "../models/index";
@@ -36,9 +37,13 @@ class UserController {
       include: { model: Movie, as: "favorites" },
     })
       .then((user) => {
+        if (user === null)
+          return res.status(400).json({ message: "El usuario no existe." });
         res.status(200).json(user);
       })
-      .catch((err) => res.status(400).json(err));
+      .catch((err) =>
+        res.status(400).json({ message: "El usuario no existe." })
+      );
   }
 
   static async registerUser(req: Request, res: Response, next: NextFunction) {
@@ -70,6 +75,7 @@ class UserController {
 
   static async loginUser(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
+    console.log(password);
     User.findOne({ where: { email } })
       .then((user) => {
         if (!user) throw new CustomError("Usuario no encontrado", 404);
@@ -95,21 +101,23 @@ class UserController {
 
   static async updateUser(req: AuthRequest, res: Response, next: NextFunction) {
     const { id, name, lastname, email, password } = req.body;
+    console.log(password);
     User.findByPk(id)
       .then((user) => {
         user.name = name;
         user.lastname = lastname;
         user.email = email;
-        user.password = password;
+        user.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
         user.save();
-        User.findByPk(id, { attributes: { exclude: ["password"] } }).then(
-          (userUpdated) => {
-            res.status(202).json({
-              message: "Usuario modificado correctamente.",
-              userUpdated,
-            });
-          }
-        );
+        User.findByPk(id, {
+          attributes: { exclude: ["password"] },
+          include: { model: Movie, as: "favorites" },
+        }).then((userUpdated) => {
+          res.status(202).json({
+            message: "Usuario modificado correctamente.",
+            userUpdated,
+          });
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -191,7 +199,7 @@ class UserController {
   }
 
   static async secret(req: AuthRequest, res: Response, next: NextFunction) {
-    res.json(req.user);
+    res.status(200).json(req.user);
   }
 
   static async logoutUser(req: Request, res: Response, next: NextFunction) {
